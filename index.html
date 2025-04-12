@@ -13,118 +13,97 @@
         height: 100%;
         width: 100%;
         overflow: hidden;
-        background-color: #222; /* Dark background for contrast */
-        color: #fff; /* White text for readability */
-        font-family: Arial, sans-serif; /* Simple, readable font */
-        line-height: 1.5; /* Improve readability across devices */
+        background-color: #222; /* Dark background */
+        color: #fff; /* White text */
+        font-family: Arial, sans-serif;
+        line-height: 1.5;
       }
 
       #game-container {
         width: 100vw;
         height: 100vh;
         padding: 0;
-        box-sizing: border-box; /* Ensure padding and borders don’t affect width/height */
-        display: block; /* Ensure proper container display */
-        overflow: hidden; /* Prevent scrolling inside the game container */
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
       }
 
+      /* General Button Styles */
       button {
-        background-color: #ff5722; /* Bright button color for visibility */
-        color: #fff; /* White button text */
+        background-color: #ff5722; /* Return to orange */
+        color: #fff; /* White text */
         border: none;
-        border-radius: 6px;
-        padding: 12px 20px; /* Default padding for buttons */
-        font-size: 16px; /* Default font size for buttons */
+        border-radius: 6px; /* Rounded corners */
+        padding: 12px 20px; /* Standard padding */
+        font-size: 16px; /* Text size */
         cursor: pointer;
+        margin: 8px; /* Add spacing between buttons */
+        transition: background-color 0.3s ease; /* Smooth hover effect */
       }
 
       button:hover {
-        background-color: #e64a19; /* Slightly darker on hover */
+        background-color: #e64a19; /* Darker orange on hover */
       }
 
-      /* Small Phones: Screens 600px wide and smaller */
+      /* Layout for Buttons */
+      .button-container {
+        display: flex;
+        flex-direction: column; /* Stacks buttons vertically */
+        align-items: center; /* Center-align the buttons */
+        justify-content: center;
+      }
+
+      /* Responsive Buttons for Small Screens */
       @media (max-width: 600px) {
-        body {
-          font-size: 5vw; /* Scale text slightly larger for small screens */
-        }
-
         button {
-          font-size: 6vw; /* Make button text larger */
-          padding: 14px 24px; /* Add more padding to buttons */
+          font-size: 5vw; /* Slightly larger text for buttons */
+          padding: 14px 24px; /* Make buttons better for touch */
         }
 
-        #game-container {
-          width: 100vw;
-          height: 100vh;
-          padding: 10px; /* Add slight padding for better presentation */
-        }
-
-        h1, h2, h3 {
-          font-size: 6vw; /* Ensure headings are prominent on small phones */
-        }
-
-        p {
-          font-size: 4.5vw; /* Ensure paragraphs are easy to read */
+        .button-container {
+          flex-direction: column; /* Keep buttons stacked vertically */
         }
       }
 
-      /* Tablets: Screens between 401px and 768px wide */
+      /* Responsive Buttons for Tablets */
       @media (min-width: 401px) and (max-width: 768px) {
-        body {
-          font-size: 18px; /* Set a readable font size for tablets */
-        }
-
         button {
-          font-size: 18px; /* Larger font for buttons on tablets */
-          padding: 14px 24px; /* Adjust padding for balance */
+          font-size: 18px;
         }
 
-        #game-container {
-          width: 95vw; /* Slight margin for tablets */
-          height: 95vh;
-          margin: auto; /* Center the container */
-          border: 1px solid #333;
-          border-radius: 8px;
-        }
-
-        h1, h2, h3 {
-          font-size: 22px; /* Larger headings for tablets */
-        }
-
-        p {
-          font-size: 16px; /* Adjust paragraph size for better readability */
+        .button-container {
+          flex-direction: row; /* Switch to horizontal layout for tablets */
+          gap: 12px; /* Add a gap between buttons */
         }
       }
 
-      /* Desktops: Screens 769px wide and larger */
+      /* Desktops */
       @media (min-width: 769px) {
-        body {
-          font-size: 22px; /* Larger font for desktops */
-        }
-
         button {
-          font-size: 20px; /* Larger font for desktop buttons */
-          padding: 16px 28px; /* Add padding for prominent buttons */
+          font-size: 20px;
+          padding: 16px 28px; /* Larger buttons */
         }
 
-        #game-container {
-          width: 90vw;
-          height: 90vh;
-          margin: auto; /* Center the container */
-          border: 1px solid #444;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-          border-radius: 12px;
-        }
-
-        h1, h2, h3 {
-          font-size: 26px; /* Prominent headings for desktops */
-        }
-
-        p {
-          font-size: 18px; /* Adjust paragraph size for readability */
+        .button-container {
+          flex-direction: row; /* Horizontal layout by default */
+          gap: 16px; /* Add space between buttons */
         }
       }
     </style>
+
+<div id="game-container">
+  <h1>Game Title</h1>
+  <p>Some instructions or information could go here...</p>
+  
+  <!-- Button Container -->
+  <div class="button-container">
+    <button id="submit-button">Submit</button>
+    <button id="hint-button">Hint</button>
+  </div>
+</div>
+
 
 
 </head>
