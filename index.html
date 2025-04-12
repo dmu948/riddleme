@@ -4923,11 +4923,6 @@
 
     const game = new Phaser.Game(config);
 
-    // Optionally re-resize on window change
-    window.addEventListener('resize', () => {
-      game.scale.resize(window.innerWidth, window.innerHeight);
-    });
-    
     function normalizeString(str) {
       return str.toLowerCase().replace(/[^a-z0-9]/g, "");
     }
