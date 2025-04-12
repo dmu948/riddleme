@@ -5,47 +5,74 @@
   <meta charset="UTF-8">
   <title>Daily Riddle Game - Points Based with Bonus</title>
   <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.js"></script>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-      background-color: #222;
-      color: #fff;
-      font-family: Arial, sans-serif;
-    }
-
-    #game-container {
-      width: 100vw;
-      height: 100vh;
-      padding: 0;
-      box-sizing: border-box;
-      display: block;
-    }
-
-    /* Small phones */
-    @media (max-width: 600px) {
+    <style>
+      /* Base Styles */
       body {
-        font-size: 4vw;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        background-color: #222; /* Dark background for contrast */
+        color: #fff; /* White text for readability */
+        font-family: Arial, sans-serif; /* Simple, readable font */
+        line-height: 1.5; /* Improve readability across devices */
       }
-    }
 
-    /* Tablets */
-    @media (min-width: 401px) and (max-width: 768px) {
-      body {
-        font-size: 18px;
+      #game-container {
+        width: 100vw;
+        height: 100vh;
+        padding: 0;
+        box-sizing: border-box; /* Ensure padding and borders don’t affect width/height */
+        display: block; /* Ensure proper container display */
+        overflow: hidden; /* Prevent scrolling inside the game container */
       }
-    }
 
-    /* Desktops */
-    @media (min-width: 769px) {
-      body {
-        font-size: 22px;
+      /* Small Phones: Screens 600px wide and smaller */
+      @media (max-width: 600px) {
+        body {
+          font-size: 4vw; /* Scale font in relation to viewport width */
+        }
+
+        #game-container {
+          width: 100vw;
+          height: 100vh;
+          padding: 5px; /* Add slight padding for better presentation */
+        }
       }
-    }
-  </style>
+
+      /* Tablets: Screens between 401px and 768px wide */
+      @media (min-width: 401px) and (max-width: 768px) {
+        body {
+          font-size: 18px; /* Set a readable font size for tablets */
+        }
+
+        #game-container {
+          width: 95vw; /* Slight margin for tablets */
+          height: 95vh; /* Maintain responsiveness */
+          margin: auto; /* Center the container */
+          border: 1px solid #333; /* Add a subtle border for visual framing */
+          border-radius: 8px; /* Slightly rounded corners */
+        }
+      }
+
+      /* Desktops: Screens 769px wide and larger */
+      @media (min-width: 769px) {
+        body {
+          font-size: 22px; /* Larger font for desktops */
+        }
+
+        #game-container {
+          width: 90vw;
+          height: 90vh;
+          margin: auto; /* Center the container */
+          border: 1px solid #444; /* Subtle border for visual framing */
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a shadow effect */
+          border-radius: 12px; /* Rounded corners for a modern look */
+        }
+      }
+    </style>
+
 </head>
 <body>
   <div id="game-container"></div>
