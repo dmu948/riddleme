@@ -9,43 +9,38 @@
     body {
       margin: 0;
       padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
       background-color: #222;
       color: #fff;
       font-family: Arial, sans-serif;
     }
 
     #game-container {
-      width: 100%;
+      width: 100vw;
       height: 100vh;
+      padding: 0;
       box-sizing: border-box;
-      padding: 10px;
+      display: block;
     }
 
-    /* Mobile responsiveness */
+    /* Small phones */
     @media (max-width: 400px) {
-      #game-container {
-        padding: 2px;
-      }
       body {
-        font-size: 4vw; /* adaptive sizing for smaller screens */
+        font-size: 4vw;
       }
     }
 
-    /* Tablet responsiveness */
-    @media (min-width: 760px) and (max-width: 768px) {
-      #game-container {
-        padding: 15px;
-      }
+    /* Tablets */
+    @media (min-width: 401px) and (max-width: 768px) {
       body {
-        font-size: 20px;
+        font-size: 18px;
       }
     }
 
-    /* Desktop responsiveness */
-    @media (min-width: 768px) {
-      #game-container {
-        padding: 20px;
-      }
+    /* Desktops */
+    @media (min-width: 769px) {
       body {
         font-size: 22px;
       }
