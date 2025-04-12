@@ -4911,11 +4911,12 @@
   
     const config = {
         type: Phaser.AUTO,
-        width: 800, // Base width
-        height: 600, // Base height
+        width: 800,
+        height: 600,
+        parent: 'game-container', // Attach to a specific DOM element
         scale: {
-            mode: Phaser.Scale.FIT, // Ensures the game fits within the available space
-            autoCenter: Phaser.Scale.CENTER_BOTH, // Centers the game canvas
+            mode: Phaser.Scale.FIT, // Fit within available space
+            autoCenter: Phaser.Scale.CENTER_BOTH, // Center both horizontally and vertically
         },
         scene: {
             create: create,
@@ -4923,6 +4924,7 @@
     };
 
     const game = new Phaser.Game(config);
+
 
 
     function normalizeString(str) {
