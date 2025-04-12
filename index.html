@@ -4911,15 +4911,23 @@
   
     const config = {
       type: Phaser.AUTO,
-      width: 800,
-      height: 600,
       parent: 'game-container',
-      dom: { createContainer: true },
-      scene: { create: create }
+      width: window.innerWidth,
+      height: window.innerHeight,
+      scale: {
+        mode: Phaser.Scale.RESIZE,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+      },
+      scene: [YourScene]
     };
 
     const game = new Phaser.Game(config);
 
+    // Optionally re-resize on window change
+    window.addEventListener('resize', () => {
+      game.scale.resize(window.innerWidth, window.innerHeight);
+    });
+    
     function normalizeString(str) {
       return str.toLowerCase().replace(/[^a-z0-9]/g, "");
     }
