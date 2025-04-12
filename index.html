@@ -5013,6 +5013,18 @@
           if (hintsUsed === dailyRiddle.hints.length) hintButton.node.disabled = true;
         }
       };
+      function resetZoom() {
+      document.body.style.transform = 'scale(1)';
+      document.body.style.transformOrigin = '0 0';
+      setTimeout(() => {
+        document.body.style.transform = '';
+        document.body.style.transformOrigin = '';
+      }, 300);
+    }
+
+    // Call this after form submission
+    resetZoom();
+
     }
   </script>
 </body>

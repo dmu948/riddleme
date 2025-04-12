@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta charset="UTF-8">
   <title>Daily Riddle Game - Points Based with Bonus</title>
   <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.js"></script>
@@ -12,9 +13,42 @@
       color: #fff;
       font-family: Arial, sans-serif;
     }
+
     #game-container {
       width: 100%;
       height: 100vh;
+      box-sizing: border-box;
+      padding: 10px;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      #game-container {
+        padding: 5px;
+      }
+      body {
+        font-size: 18px;
+      }
+    }
+
+    /* Tablet responsiveness */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      #game-container {
+        padding: 15px;
+      }
+      body {
+        font-size: 20px;
+      }
+    }
+
+    /* Desktop responsiveness */
+    @media (min-width: 1025px) {
+      #game-container {
+        padding: 20px;
+      }
+      body {
+        font-size: 22px;
+      }
     }
   </style>
 </head>
