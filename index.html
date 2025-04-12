@@ -28,16 +28,43 @@
         overflow: hidden; /* Prevent scrolling inside the game container */
       }
 
+      button {
+        background-color: #ff5722; /* Bright button color for visibility */
+        color: #fff; /* White button text */
+        border: none;
+        border-radius: 6px;
+        padding: 12px 20px; /* Default padding for buttons */
+        font-size: 16px; /* Default font size for buttons */
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #e64a19; /* Slightly darker on hover */
+      }
+
       /* Small Phones: Screens 600px wide and smaller */
-      @media (max-width: 800px) {
+      @media (max-width: 600px) {
         body {
-          font-size: 4vw; /* Scale font in relation to viewport width */
+          font-size: 5vw; /* Scale text slightly larger for small screens */
+        }
+
+        button {
+          font-size: 6vw; /* Make button text larger */
+          padding: 14px 24px; /* Add more padding to buttons */
         }
 
         #game-container {
           width: 100vw;
           height: 100vh;
-          padding: 5px; /* Add slight padding for better presentation */
+          padding: 10px; /* Add slight padding for better presentation */
+        }
+
+        h1, h2, h3 {
+          font-size: 6vw; /* Ensure headings are prominent on small phones */
+        }
+
+        p {
+          font-size: 4.5vw; /* Ensure paragraphs are easy to read */
         }
       }
 
@@ -47,12 +74,25 @@
           font-size: 18px; /* Set a readable font size for tablets */
         }
 
+        button {
+          font-size: 18px; /* Larger font for buttons on tablets */
+          padding: 14px 24px; /* Adjust padding for balance */
+        }
+
         #game-container {
           width: 95vw; /* Slight margin for tablets */
-          height: 95vh; /* Maintain responsiveness */
+          height: 95vh;
           margin: auto; /* Center the container */
-          border: 1px solid #333; /* Add a subtle border for visual framing */
-          border-radius: 8px; /* Slightly rounded corners */
+          border: 1px solid #333;
+          border-radius: 8px;
+        }
+
+        h1, h2, h3 {
+          font-size: 22px; /* Larger headings for tablets */
+        }
+
+        p {
+          font-size: 16px; /* Adjust paragraph size for better readability */
         }
       }
 
@@ -62,16 +102,30 @@
           font-size: 22px; /* Larger font for desktops */
         }
 
+        button {
+          font-size: 20px; /* Larger font for desktop buttons */
+          padding: 16px 28px; /* Add padding for prominent buttons */
+        }
+
         #game-container {
           width: 90vw;
           height: 90vh;
           margin: auto; /* Center the container */
-          border: 1px solid #444; /* Subtle border for visual framing */
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a shadow effect */
-          border-radius: 12px; /* Rounded corners for a modern look */
+          border: 1px solid #444;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+          border-radius: 12px;
+        }
+
+        h1, h2, h3 {
+          font-size: 26px; /* Prominent headings for desktops */
+        }
+
+        p {
+          font-size: 18px; /* Adjust paragraph size for readability */
         }
       }
     </style>
+
 
 </head>
 <body>
