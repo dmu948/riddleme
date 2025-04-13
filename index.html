@@ -4938,7 +4938,7 @@
   // --- Step 1: Deterministic Shuffle using a seed ---
   function seededShuffle(array, seed) {
     const result = array.slice(); // make a copy
-    let random = mulberry32(seed);
+    let random = 314156(seed);
 
     for (let i = result.length - 1; i > 0; i--) {
       const j = Math.floor(random() * (i + 1));
