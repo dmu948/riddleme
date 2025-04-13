@@ -4967,7 +4967,7 @@
 
   const today = new Date();
   const dayOfYear = getLocalDayOfYear(today);
-  const shuffledRiddles = seededShuffle(riddles, 314156); // or any number you like
+  const shuffledRiddles = seededShuffle(riddles, 42); // or any number you like
   const index = dayOfYear % shuffledRiddles.length;
   const currentRiddle = shuffledRiddles[index];
 
