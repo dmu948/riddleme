@@ -27,7 +27,7 @@
         padding: 5px;
       }
       body {
-        font-size: 18px;
+        font-size: 20px;
       }
     }
 
@@ -4957,21 +4957,21 @@
       const pointsText = scene.add.text(50, 150, `Points: ${points}`, { fontSize: '20px' });
       const triesText = scene.add.text(50, 180, `Tries Left: ${triesLeft}`, { fontSize: '20px' });
       const hintsText = scene.add.text(50, 210, `Hints Used: ${hintsUsed}`, { fontSize: '20px' });
-      const hintDisplay = scene.add.text(50, 300, "", { fontSize: '18px', fill: '#ff0', wordWrap: { width: 700 } });
+      const hintDisplay = scene.add.text(50, 300, "", { fontSize: '20px', fill: '#ff0', wordWrap: { width: 700 } });
       const feedbackText = scene.add.text(50, 250, "", { fontSize: '20px', fill: '#f00' });
 
       const inputElement = scene.add.dom(400, 350, 'input', {
         type: 'text',
         placeholder: 'Enter your answer...',
-        style: 'width:400px;height:30px;font-size:22px;'
+        style: 'width:400px;height:30px;font-size:20px;'
       });
 
       const submitButton = scene.add.dom(400, 400, 'button', {
-        style: 'width:150px;height:40px;font-size:22px;'
+        style: 'width:150px;height:40px;font-size:20px;'
       }, 'Submit');
 
       const hintButton = scene.add.dom(400, 450, 'button', {
-        style: 'width:150px;height:40px;font-size:22px;'
+        style: 'width:150px;height:40px;font-size:20px;'
       }, 'Hint (-30 pts)');
 
       function processSubmission() {
