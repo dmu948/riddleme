@@ -4957,17 +4957,20 @@
     };
   }
 
-  // --- Step 2: Pick today's riddle deterministically ---
-  const today = new Date();
-  const dayOfYear = Math.floor(
-    (today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24
-  );
+  // --- Local time zone-safe Day of Year ---
+  function getLocalDayOfYear(date) {
+    const start = new Date(date.getFullYear(), 0, 0); // Jan 0 in local time
+    const diff = date - start;
+    const oneDay = 1000 * 60 * 60 * 24;
+    return Math.floor(diff / oneDay);
+  }
 
+  const today = new Date();
+  const dayOfYear = getLocalDayOfYear(today);
   const shuffledRiddles = seededShuffle(riddles, today.getFullYear());
   const index = dayOfYear % shuffledRiddles.length;
   const currentRiddle = shuffledRiddles[index];
 
-  // Use `currentRiddle` in your game logic
   console.log("Today's riddle is:", currentRiddle.question);
 
   
