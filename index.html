@@ -5080,15 +5080,12 @@
         }
       };
 
-      const shareButton = this.add.text(400, 510, 'Share Your Score', {
-        font: '20px Arial',
-        fill: '#ffffff',
-        backgroundColor: '#007BFF',
-        padding: { x: 10, y: 5 },
-        align: 'center'
-      }).setInteractive().setOrigin(0.5);
+      const shareButton = this.add.dom(400, 510, 'button', {
+        style: 'width:200px; height:50px; font-size:20px; background-color:#007BFF; color:#ffffff; border:none; border-radius:5px; padding:10px; cursor:pointer; z-index:9999; pointer-events:auto;'
+      }, 'Share Your Score');
 
-      shareButton.on('pointerdown', () => {
+      shareButton.addListener('click');
+      shareButton.on('click', () => {
         const message = `🤔 Riddle: ${riddle.question}\n🏆 My Score: ${score}`;
         
         if (navigator.share) {
@@ -5097,19 +5094,17 @@
             text: message
           }).catch(err => console.log('Share canceled or failed:', err));
         } else {
-            const hiddenTextArea = document.createElement('textarea');
-            hiddenTextArea.value = message;
-            document.body.appendChild(hiddenTextArea);
-            hiddenTextArea.select();
-
-            try {
-              const successful = document.execCommand('copy');
-              alert(successful ? "Copied to clipboard!" : "Copy failed. Try manually.");
-            } catch (err) {
-              alert("Copy failed. Try manually.");
-            }
-
-            document.body.removeChild(hiddenTextArea);
+          const hiddenTextArea = document.createElement('textarea');
+          hiddenTextArea.value = message;
+          document.body.appendChild(hiddenTextArea);
+          hiddenTextArea.select();
+          try {
+            const successful = document.execCommand('copy');
+            alert(successful ? "Copied to clipboard! Share it with your friends." : "Copy failed. Try manually.");
+          } catch (err) {
+            alert("Copy failed. Try manually.");
+          }
+          document.body.removeChild(hiddenTextArea);
         }
       });
 
