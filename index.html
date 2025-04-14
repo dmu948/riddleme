@@ -5080,14 +5080,26 @@
         }
       };
 
-      const shareButton = this.add.dom(400, 510, 'button', {
-        style: 'width:200px; height:50px; font-size:20px; background-color:#007BFF; color:#ffffff; border:none; border-radius:5px; padding:10px; cursor:pointer; z-index:9999; pointer-events:auto;'
+      const shareStyle = `
+        width: 200px;
+        height: 50px;
+        font-size: ${isMobile ? '26px' : '20px'};
+        margin-top: 20px;
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+      `;
+
+      const shareButton = scene.add.dom(400, 600, 'button', {
+        type: 'button',
+        style: shareStyle
       }, 'Share Your Score');
 
       shareButton.addListener('click');
       shareButton.on('click', () => {
         const message = `🤔 Riddle: ${riddle.question}\n🏆 My Score: ${score}`;
-        
+
         if (navigator.share) {
           navigator.share({
             title: 'Riddle Challenge',
@@ -5100,7 +5112,7 @@
           hiddenTextArea.select();
           try {
             const successful = document.execCommand('copy');
-            alert(successful ? "Copied to clipboard! Share it with your friends." : "Copy failed. Try manually.");
+            alert(successful ? "Copied to clipboard!" : "Copy failed. Try manually.");
           } catch (err) {
             alert("Copy failed. Try manually.");
           }
