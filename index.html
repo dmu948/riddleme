@@ -5097,9 +5097,19 @@
             text: message
           }).catch(err => console.log('Share canceled or failed:', err));
         } else {
-          navigator.clipboard.writeText(message)
-            .then(() => alert("Copied to clipboard! Share it with your friends."))
-            .catch(() => alert("Copy failed. Try again!"));
+            const hiddenTextArea = document.createElement('textarea');
+            hiddenTextArea.value = message;
+            document.body.appendChild(hiddenTextArea);
+            hiddenTextArea.select();
+
+            try {
+              const successful = document.execCommand('copy');
+              alert(successful ? "Copied to clipboard!" : "Copy failed. Try manually.");
+            } catch (err) {
+              alert("Copy failed. Try manually.");
+            }
+
+            document.body.removeChild(hiddenTextArea);
         }
       });
 
