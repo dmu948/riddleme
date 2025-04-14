@@ -5083,36 +5083,39 @@
       const shareStyle = `
         width: 200px;
         height: 50px;
-        font-size: ${isMobile ? '26px' : '20px'};
+        font-size: ${typeof isMobile !== 'undefined' && isMobile ? '26px' : '20px'};
         margin-top: 20px;
         background-color: #007BFF;
         color: #fff;
         border: none;
         border-radius: 8px;
+        pointer-events: auto;
+        z-index: 1000;
       `;
 
-      const shareButton = scene.add.dom(400, 500, 'button', {
+      const shareButton = scene.add.dom(400, 520, 'button', {
         type: 'button',
         style: shareStyle
       }, 'Share Your Score');
 
-      shareButton.addListener('click');
-      shareButton.on('click', () => {
+      // Attach the event listener directly to the DOM node:
+      shareButton.node.addEventListener('click', () => {
         const message = `🤔 Riddle: ${riddle.question}\n🏆 My Score: ${score}`;
-
+        
         if (navigator.share) {
           navigator.share({
             title: 'Riddle Challenge',
             text: message
           }).catch(err => console.log('Share canceled or failed:', err));
         } else {
+          // Fallback: copy message to clipboard using a hidden textarea
           const hiddenTextArea = document.createElement('textarea');
           hiddenTextArea.value = message;
           document.body.appendChild(hiddenTextArea);
           hiddenTextArea.select();
           try {
             const successful = document.execCommand('copy');
-            alert(successful ? "Copied to clipboard!" : "Copy failed. Try manually.");
+            alert(successful ? "Copied to clipboard! Share it with your friends." : "Copy failed. Try manually.");
           } catch (err) {
             alert("Copy failed. Try manually.");
           }
