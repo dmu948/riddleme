@@ -5032,6 +5032,38 @@
         style: 'width:150px;height:40px;font-size:20px;'
       }, 'Hint (-30 pts)');
 
+            // Create the share button as a DOM element to ensure proper layering and interactivity.
+      const shareButton = scene.add.dom(400, 520, 'button', { style: shareStyle }, 'Share Your Score');
+
+      // Attach the click event listener directly to the button's underlying node.
+      shareButton.node.addEventListener('click', () => {
+        console.log("Share button clicked");
+        console.log("riddle object:", riddle);
+        console.log("score value:", score);
+        
+        const message = `🤔 Riddle: ${riddle.question}\n🏆 My Score: ${score}`;
+        console.log("Share message:", message);
+
+        if (navigator.share) {
+          navigator.share({
+            title: 'Riddle Challenge',
+            text: message
+          }).catch(err => console.log('Share canceled or failed:', err));
+        } else {
+          // Fallback: Use a hidden textarea to copy the text
+          const hiddenTextArea = document.createElement('textarea');
+          hiddenTextArea.value = message;
+          document.body.appendChild(hiddenTextArea);
+          hiddenTextArea.select();
+          try {
+            const successful = document.execCommand('copy');
+            alert(successful ? "Copied to clipboard! Share it with your friends." : "Copy failed. Try manually.");
+          } catch (err) {
+            alert("Copy failed. Try manually.");
+          }
+          document.body.removeChild(hiddenTextArea);
+        }
+
       function processSubmission() {
         const userGuess = inputElement.node.value;
         if (!userGuess) return;
@@ -5079,53 +5111,6 @@
           if (hintsUsed === dailyRiddle.hints.length) hintButton.node.disabled = true;
         }
       };
-
-      // Determine mobile or desktop styling
-      const shareStyle = `
-        width: 200px;
-        height: 50px;
-        font-size: ${isMobile ? '26px' : '20px'};
-        margin-top: 20px;
-        background-color: #007BFF;
-        color: #fff;
-        border: none;
-        border-radius: 8px;
-        pointer-events: auto;
-        z-index: 9999;
-      `;
-
-      // Create the share button as a DOM element to ensure proper layering and interactivity.
-      const shareButton = scene.add.dom(400, 520, 'button', { style: shareStyle }, 'Share Your Score');
-
-      // Attach the click event listener directly to the button's underlying node.
-      shareButton.node.addEventListener('click', () => {
-        console.log("Share button clicked");
-        console.log("riddle object:", riddle);
-        console.log("score value:", score);
-        
-        const message = `🤔 Riddle: ${riddle.question}\n🏆 My Score: ${score}`;
-        console.log("Share message:", message);
-
-        if (navigator.share) {
-          navigator.share({
-            title: 'Riddle Challenge',
-            text: message
-          }).catch(err => console.log('Share canceled or failed:', err));
-        } else {
-          // Fallback: Use a hidden textarea to copy the text
-          const hiddenTextArea = document.createElement('textarea');
-          hiddenTextArea.value = message;
-          document.body.appendChild(hiddenTextArea);
-          hiddenTextArea.select();
-          try {
-            const successful = document.execCommand('copy');
-            alert(successful ? "Copied to clipboard! Share it with your friends." : "Copy failed. Try manually.");
-          } catch (err) {
-            alert("Copy failed. Try manually.");
-          }
-          document.body.removeChild(hiddenTextArea);
-        }
-      });
 
     }
   </script>
