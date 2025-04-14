@@ -5007,10 +5007,20 @@
       const hintDisplay = scene.add.text(50, 300, "", { fontSize: '20px', fill: '#ff0', wordWrap: { width: 700 } });
       const feedbackText = scene.add.text(50, 250, "", { fontSize: '20px', fill: '#f00' });
 
+      const isMobile = window.innerWidth < 600;
+
+      const inputStyle = `
+        width: ${isMobile ? '90%' : '400px'};
+        height: ${isMobile ? '45px' : '30px'};
+        font-size: ${isMobile ? '24px' : '20px'};
+        border-radius: 8px;
+        padding: 5px;
+      `;
+
       const inputElement = scene.add.dom(400, 350, 'input', {
         type: 'text',
         placeholder: 'Enter your answer...',
-        style: 'width:400px;height:30px;font-size:20px;'
+        style: inputStyle
       });
 
       const submitButton = scene.add.dom(400, 400, 'button', {
