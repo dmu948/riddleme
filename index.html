@@ -4404,134 +4404,129 @@ const riddles = [
     window.addEventListener('resize', () => {
       game.scale.resize(window.innerWidth, window.innerHeight);
     });
-
     function create() {
-      const scene = this;
-      let triesLeft = 3;
-      let hintsUsed = 0;
-      let points = 90;
-      const dailyRiddle = currentRiddle;
+    const scene = this;
+    let triesLeft = 3;
+    let hintsUsed = 0;
+    let points = 90;
+    const dailyRiddle = currentRiddle;
 
-      // ─── TEXTUAL HUD ────────────────────────────────────────────────────────────
-      scene.add.text(20, 20, "Daily Riddle:", {
-        fontSize: '24px', fill: '#fff'
-      });
-      scene.add.text(20, 60, dailyRiddle.question, {
-        fontSize: '20px', fill: '#fff', wordWrap: { width: scene.scale.width - 40 }
-      });
+    // ─── COMMON LAYOUT CALCS ─────────────────────────────────────────────────────
+    const W       = scene.scale.width;
+    const H       = scene.scale.height;
+    const centerX = W / 2;
+    const isMobile= W < 600;
 
-      const pointsText   = scene.add.text(20, 140, `Points: ${points}`,    { fontSize: '20px' });
-      const triesText    = scene.add.text(20, 170, `Tries Left: ${triesLeft}`, { fontSize: '20px' });
-      const hintsText    = scene.add.text(20, 200, `Hints Used: ${hintsUsed}`, { fontSize: '20px' });
-      const hintDisplay  = scene.add.text(20, 240, "", { fontSize: '20px', fill: '#ff0', wordWrap: { width: scene.scale.width - 40 } });
-      const feedbackText = scene.add.text(20, 300, "", { fontSize: '20px', fill: '#f00' });
-
-      // ─── CALCULATE CENTERED POSITIONS ──────────────────────────────────────────
-      const W = scene.scale.width;
-      const H = scene.scale.height;
-      const centerX = W / 2;
-      const isMobile = W < 600;
-
-      // vertical stack offsets
-      const inputY  = H * 0.5 - (isMobile ? 60 : 50);
-      const submitY = inputY + (isMobile ? 100 : 80);
-      const hintY   = submitY + (isMobile ? 80  : 60);
-      const shareY  = H - (isMobile ? 80 : 60);
-
-      // ─── INPUT BOX ───────────────────────────────────────────────────────────────
-      const inputStyle = `
-        width:  ${isMobile ? '90%' : '600px'};
-        height: ${isMobile ? '80px' : '70px'};
-        font-size: ${isMobile ? '36px' : '32px'};
-        border-radius: 12px;
-        padding: 16px;
-        box-sizing: border-box;
-      `;
-      const inputElement = scene.add.dom(centerX, inputY, 'input', {
-        type: 'text',
-        placeholder: 'Enter your answer…',
-        style: inputStyle
-      });
-
-      // ─── SUBMIT BUTTON ──────────────────────────────────────────────────────────
-      const btnStyle = `width:150px;height:40px;font-size:${isMobile?'24px':'20px'};`;
-      const submitButton = scene.add.dom(centerX, submitY, 'button', { style: btnStyle }, 'Submit');
-
-      // key‑enter still works
-      inputElement.node.addEventListener('keydown', e => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          submitButton.node.click();
-        }
-      });
-
-      // ─── HINT BUTTON ────────────────────────────────────────────────────────────
-      const hintButton = scene.add.dom(centerX, hintY, 'button', { style: btnStyle }, 'Hint (–30 pts)');
-
-      // ─── SHARE BUTTON ───────────────────────────────────────────────────────────
-      const shareBtnStyle = `
-        width: ${isMobile ? '80%' : '150px'};
-        height: 40px;
-        font-size: ${isMobile ? '24px' : '20px'};
-        background-color: #28a745;
-        color: #fff;
-        border-radius: 5px;
-        margin-top: 20px;
-      `;
-      const shareButton = scene.add.dom(centerX, shareY, 'button', { style: shareBtnStyle }, 'Share Score');
-
-      // ─── EVENT HANDLERS ─────────────────────────────────────────────────────────
-      function processSubmission() {
-        const guess = inputElement.node.value;
-        if (!guess) return;
-
-        if (checkAnswer(guess, dailyRiddle)) {
-          const bonus = triesLeft === 3 ? 90 : triesLeft === 2 ? 60 : 0;
-          points += bonus;
-          pointsText.setText(`Points: ${points}`);
-          feedbackText.setStyle({ fill: '#0f0' });
-          feedbackText.setText(`Correct! The answer is: ${dailyRiddle.answer}\n+${bonus} pts`);
-          inputElement.node.disabled = submitButton.node.disabled = hintButton.node.disabled = true;
-        } else {
-          points = Math.max(0, points - 30);
-          triesLeft--;
-          pointsText.setText(`Points: ${points}`);
-          triesText.setText(`Tries Left: ${triesLeft}`);
-          feedbackText.setStyle({ fill: '#f00' });
-          feedbackText.setText(`Wrong: ${guess}`);
-          if (triesLeft <= 0) {
-            feedbackText.setText(`Game Over! Answer: ${dailyRiddle.answer}`);
-            inputElement.node.disabled = submitButton.node.disabled = hintButton.node.disabled = true;
-          }
-        }
-        inputElement.node.value = '';
+    // ─── QUESTION TEXT ────────────────────────────────────────────────────────────
+    const questionText = scene.add.text(
+      centerX, H * 0.10,
+      dailyRiddle.question,
+      {
+        fontSize: isMobile ? '22px' : '28px',
+        fill: '#fff',
+        wordWrap: { width: W * 0.8 },
+        align: 'center'
       }
+    ).setOrigin(0.5, 0);
 
-      submitButton.node.onclick = processSubmission;
+    // ─── STATS & FEEDBACK ────────────────────────────────────────────────────────
+    const pointsText   = scene.add.text(centerX, H * 0.30, `Points: ${points}`,   { fontSize: '20px', fill: '#fff' }).setOrigin(0.5,0);
+    const triesText    = scene.add.text(centerX, H * 0.34, `Tries Left: ${triesLeft}`, { fontSize: '20px', fill: '#fff' }).setOrigin(0.5,0);
+    const hintsText    = scene.add.text(centerX, H * 0.38, `Hints Used: ${hintsUsed}`, { fontSize: '20px', fill: '#fff' }).setOrigin(0.5,0);
+    const hintDisplay  = scene.add.text(centerX, H * 0.42, '', { fontSize: '20px', fill: '#ff0', wordWrap: { width: W * 0.8 }, align: 'center' }).setOrigin(0.5,0);
+    const feedbackText = scene.add.text(centerX, H * 0. fifty, '', { fontSize: '20px', fill: '#f00', wordWrap: { width: W * 0.8 }, align: 'center' }).setOrigin(0.5,0);
 
-      hintButton.node.onclick = () => {
+    // ─── INPUT & BUTTON POSITIONS ─────────────────────────────────────────────────
+    const yInput   = H * 0.60;
+    const ySubmit  = yInput + (isMobile ? 100 : 80);
+    const yHint    = ySubmit + (isMobile ? 80  : 60);
+    const yShare   = H - (isMobile ? 80 : 60);
+
+    // ─── INPUT BOX ───────────────────────────────────────────────────────────────
+    const inputStyle = `
+      width:  ${isMobile ? '90%' : '600px'};
+      height: ${isMobile ? '80px' : '70px'};
+      font-size: ${isMobile ? '36px' : '32px'};
+      padding: 16px; border-radius: 12px; box-sizing: border-box;
+    `;
+    const inputElement = scene.add.dom(centerX, yInput, 'input', {
+      type: 'text', placeholder: 'Enter your answer…', style: inputStyle
+    });
+
+    // ─── SUBMIT BUTTON ──────────────────────────────────────────────────────────
+    const btnStyle = `width:150px;height:40px;font-size:${isMobile?'24px':'20px'};`;
+    const submitButton = scene.add.dom(centerX, ySubmit, 'button', { style: btnStyle }, 'Submit')
+      .addListener('click').on('click', processSubmission);
+
+    // allow Enter key to trigger Submit
+    inputElement.addListener('keyup');
+    inputElement.on('keyup', e => {
+      if (e.key === 'Enter') processSubmission();
+    });
+
+    // ─── HINT BUTTON ────────────────────────────────────────────────────────────
+    const hintButton = scene.add.dom(centerX, yHint, 'button', { style: btnStyle }, 'Hint (–30 pts)')
+      .addListener('click').on('click', () => {
         if (hintsUsed < dailyRiddle.hints.length) {
           points = Math.max(0, points - 30);
           hintsUsed++;
           pointsText.setText(`Points: ${points}`);
           hintsText.setText(`Hints Used: ${hintsUsed}`);
           hintDisplay.setText(hintDisplay.text + `\nHint ${hintsUsed}: ${dailyRiddle.hints[hintsUsed-1]}`);
-          if (hintsUsed === dailyRiddle.hints.length) hintButton.node.disabled = true;
+          if (hintsUsed === dailyRiddle.hints.length) {
+            hintButton.node.disabled = true;
+          }
         }
-      };
+      });
 
-      shareButton.node.onclick = () => {
-        const text = `Riddle: ${dailyRiddle.question}\nPoints: ${points}`;
+    // ─── SHARE BUTTON ───────────────────────────────────────────────────────────
+    const shareStyle = `
+      width: ${isMobile?'80%':'150px'};
+      height: 40px; font-size:${isMobile?'24px':'20px'};
+      background-color:#28a745; color:#fff; border-radius:5px; margin-top:20px;
+    `;
+    const shareButton = scene.add.dom(centerX, yShare, 'button', { style: shareStyle }, 'Share Score')
+      .addListener('click').on('click', () => {
+        const txt = `Riddle: ${dailyRiddle.question}\nPoints: ${points}`;
         if (navigator.share) {
-          navigator.share({ title:'My Riddle', text })
+          navigator.share({ title: 'My Riddle Score', text: txt })
             .catch(() => feedbackText.setText('Share failed.'));
         } else {
-          navigator.clipboard.writeText(text)
+          navigator.clipboard.writeText(txt)
             .then(() => feedbackText.setText('Copied! 🤙'))
             .catch(() => feedbackText.setText('Copy failed.'));
         }
-      };
+      });
+
+    // ─── PROCESS SUBMISSION ─────────────────────────────────────────────────────
+    function processSubmission() {
+      const guess = inputElement.node.value.trim();
+      if (!guess) return;
+
+      if (checkAnswer(guess, dailyRiddle)) {
+        const bonus = triesLeft === 3 ? 90 : triesLeft === 2 ? 60 : 0;
+        points += bonus;
+        pointsText.setText(`Points: ${points}`);
+        feedbackText.setStyle({ fill: '#0f0' });
+        feedbackText.setText(`Correct! +${bonus} bonus pts`);
+        inputElement.node.disabled = submitButton.node.disabled = hintButton.node.disabled = true;
+      } else {
+        points = Math.max(0, points - 30);
+        triesLeft--;
+        pointsText.setText(`Points: ${points}`);
+        triesText.setText(`Tries Left: ${triesLeft}`);
+        feedbackText.setStyle({ fill: '#f00' });
+        feedbackText.setText(`Wrong: "${guess}"`);
+        if (triesLeft <= 0) {
+          feedbackText.setText(`Game Over! Answer: ${dailyRiddle.answer}`);
+          inputElement.node.disabled = submitButton.node.disabled = hintButton.node.disabled = true;
+        }
+      }
+      inputElement.node.value = '';
     }
+  }
+
+
   </script>
 </body>
 </html>
