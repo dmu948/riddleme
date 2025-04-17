@@ -4451,17 +4451,32 @@ const riddles = [
 
 
       // Share button
-      const shareButton = scene.add.dom(scene.scale.width/2, scene.scale.height/2 + 110, 'button', { style: 'width:150px;height:40px;font-size:18px;' }, 'Share');
+      const shareButton = scene.add.dom(
+        scene.scale.width/2,
+        scene.scale.height/2 + 110,
+        'button',
+        { style: 'width:150px;height:40px;font-size:18px;' },
+        'Share'
+      );
+
+      // replace its onclick block with this:
       shareButton.node.onclick = () => {
-        const message = `🤔 Riddle: ${dailyRiddle.question}\n🏆 Points: ${points}`;
-        if (navigator.share) {
-          navigator.share({ title: 'Riddle Challenge', text: message })
+        const message = `Riddle: ${dailyRiddle.question}\nPoints: ${points}`;
+        const shareData = { title: 'Riddle Challenge', text: message };
+
+        // Web Share only if it really supports plain‑text sharing
+        if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+          navigator.share(shareData)
             .catch(err => console.error('Share failed:', err));
-        } else if (navigator.clipboard) {
+        }
+        // otherwise copy to clipboard
+        else if (navigator.clipboard) {
           navigator.clipboard.writeText(message)
             .then(() => feedbackText.setText('Copied to clipboard!'))
             .catch(err => console.error('Copy failed:', err));
-        } else {
+        }
+        // final fallback
+        else {
           prompt('Copy this text:', message);
         }
       };
