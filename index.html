@@ -4531,6 +4531,27 @@ const riddles = [
           if (hintsUsed === dailyRiddle.hints.length) hintButton.node.disabled = true;
         }
       };
+            const shareButton = scene.add.dom(400, 520, 'button', {
+        style: 'width:150px;height:40px;font-size:20px; background-color:#28a745; color:#fff;'
+      }, 'Share Score');
+
+      shareButton.node.onclick = () => {
+        const shareText = 
+          `Riddle: ${dailyRiddle.question}\n` +
+          `Points: ${points}`;
+        // copy to clipboard
+        navigator.clipboard.writeText(shareText)
+          .then(() => {
+            // optional: give some feedback
+            feedbackText.setStyle({ fill: '#0ff' });
+            feedbackText.setText('Copied to clipboard! 🤙');
+          })
+          .catch(err => {
+            console.error('Clipboard write failed', err);
+            feedbackText.setStyle({ fill: '#f00' });
+            feedbackText.setText('Copy failed – try again!');
+          });
+      };
     }
   </script>
 </body>
