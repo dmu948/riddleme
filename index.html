@@ -5,73 +5,45 @@
   <meta charset="UTF-8">
   <title>Daily Riddle Game - Points Based with Bonus</title>
   <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.js"></script>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #222;
-      color: #fff;
-      font-family: Arial, sans-serif;
-    }
-
-    #game-container {
-      width: 100%;
-      height: 100vh;
-      box-sizing: border-box;
-      padding: 15px;
-    }
-
-    button {
-      font-family: Arial, sans-serif;
-      padding: 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    /* Mobile responsiveness */
-    @media (min-width: 400px) and (max-width: 768px) {
-      #game-container {
-        padding: 5px;
+    <style>
+      /* 1. Make page fill the viewport */
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #222;
+        color: #fff;
+        font-family: Arial, sans-serif;
       }
-      body {
-        font-size: 24px;
+
+      /* 2. Game container now fills its parent */
+      #game-container {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 15px;
       }
 
       button {
-        font-size: 20px; /* Larger font size for buttons on mobile */
-        padding: 15px; /* Adjust button padding for better touch interaction */
+        /* your existing button styles */
       }
-    }
 
-    /* Tablet responsiveness */
-    @media (min-width: 769px) and (max-width: 1024px) {
-      #game-container {
-        padding: 15px;
+      /* Mobile responsiveness */
+      @media (min-width: 400px) and (max-width: 768px) {
+        /* … */
       }
-      body {
-        font-size: 20px;
-      }
-            button {
-        font-size: 20px; /* Default font size for buttons on desktops */
-        padding: 15px; /* Default button padding */
-      }
-    }
 
-    /* Desktop responsiveness */
-    @media (min-width: 1025px) {
-      #game-container {
-        padding: 20px;
+      /* Tablet responsiveness */
+      @media (min-width: 769px) and (max-width: 1024px) {
+        /* … */
       }
-      body {
-        font-size: 22px;
+
+      /* Desktop responsiveness */
+      @media (min-width: 1025px) {
+        /* … */
       }
-            button {
-        font-size: 20px; /* Default font size for buttons on desktops */
-        padding: 15px; /* Default button padding */
-      }
-    }
-  </style>
+    </style>
 </head>
 <body>
   <div id="game-container"></div>
@@ -4415,31 +4387,23 @@ const riddles = [
   
     const config = {
         type: Phaser.AUTO,
-        width: 800,
-        height: 600,
-        parent: 'game-container', // Attach to a specific DOM element
-        dom: { createContainer: true }, // Add this line
+        parent: 'game-container',
+        dom: { createContainer: true },
         scale: {
-            mode: Phaser.Scale.FIT, // Fit within available space
-            autoCenter: Phaser.Scale.CENTER_BOTH, // Center both horizontally and vertically
+            mode: Phaser.Scale.RESIZE,            // auto-resize to container
+            autoCenter: Phaser.Scale.CENTER_BOTH, // keep it centered
+            width: window.innerWidth,             // initial size
+            height: window.innerHeight
         },
-        scene: {
-            create: create,   // Ensure this is defined
-        }
+        scene: { create }
     };
 
     const game = new Phaser.Game(config);
 
-
-
-    function normalizeString(str) {
-      return str.toLowerCase().replace(/[^a-z0-9]/g, "");
-    }
-
-    function checkAnswer(guess, riddle) {
-      const normGuess = normalizeString(guess);
-      return riddle.acceptable.some(ans => normalizeString(ans) === normGuess);
-    }
+    // whenever the browser window changes size, tell Phaser to resize too
+    window.addEventListener('resize', () => {
+      game.scale.resize(window.innerWidth, window.innerHeight);
+    });
 
     function create() {
       const scene = this;
