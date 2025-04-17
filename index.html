@@ -4450,26 +4450,21 @@ const riddles = [
       };
 
       // Share button
-      shareBtn.node.onclick = () => {
-        const message = `Riddle: ${r.question}\nPoints: ${points}`;
-        const data = { title: 'Riddle Challenge', text: message };
-
-        // Only use Web Share if the device actually supports sharing plain text
-        if (navigator.share && navigator.canShare && navigator.canShare(data)) {
-          navigator.share(data)
+      const shareButton = scene.add.dom(scene.scale.width/2, scene.scale.height/2 + 110, 'button', { style: 'width:150px;height:40px;font-size:18px;' }, 'Share');
+      shareButton.node.onclick = () => {
+        const message = `🤔 Riddle: ${dailyRiddle.question}\n🏆 Points: ${points}`;
+        if (navigator.share) {
+          navigator.share({ title: 'Riddle Challenge', text: message })
             .catch(err => console.error('Share failed:', err));
-        }
-        // Otherwise fall back to clipboard
-        else if (navigator.clipboard) {
+        } else if (navigator.clipboard) {
           navigator.clipboard.writeText(message)
-            .then(() => feedback.setText('Copied to clipboard!'))
+            .then(() => feedbackText.setText('Copied to clipboard!'))
             .catch(err => console.error('Copy failed:', err));
-        }
-        // And if all else fails, prompt the user manually
-        else {
+        } else {
           prompt('Copy this text:', message);
         }
       };
+
     }
   </script>
 </body>
