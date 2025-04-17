@@ -4520,6 +4520,19 @@ const riddles = [
           processSubmission();
         }
       });
+            // Clipboard write with fallback for older WebViews / mobile browsers
+      function copyToClipboard(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          return navigator.clipboard.writeText(text);
+        }
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        return Promise.resolve();
+      }
 
       hintButton.node.onclick = function() {
         if (hintsUsed < dailyRiddle.hints.length) {
@@ -4531,27 +4544,17 @@ const riddles = [
           if (hintsUsed === dailyRiddle.hints.length) hintButton.node.disabled = true;
         }
       };
-            const shareButton = scene.add.dom(400, 520, 'button', {
-        style: 'width:150px;height:40px;font-size:20px; background-color:#28a745; color:#fff;'
-      }, 'Share Score');
+      // ─── SHARE BUTTON (with fallback) ───────────────────────────────────────────
+      scene.add.dom(centerX + 180, yBtns, 'button', { style: btnStyle + 'background:#28a745;color:#fff;' }, 'Share')
+        .addListener('click')
+        .on('click', () => {
+          const text = `Riddle: ${currentRiddle.question}\nPoints: ${points}`;
+          copyToClipboard(text)
+            .then(() => feedbackText.setStyle({ fill: '#0ff' }).setText('Copied! 🤙'))
+            .catch(() => feedbackText.setStyle({ fill: '#f00' }).setText('Copy failed'));
+        });
+// ───────────────────────────────────────────────────────────────────────────
 
-      shareButton.node.onclick = () => {
-        const shareText = 
-          `Riddle: ${dailyRiddle.question}\n` +
-          `Points: ${points}`;
-        // copy to clipboard
-        navigator.clipboard.writeText(shareText)
-          .then(() => {
-            // optional: give some feedback
-            feedbackText.setStyle({ fill: '#0ff' });
-            feedbackText.setText('Copied to clipboard! 🤙');
-          })
-          .catch(err => {
-            console.error('Clipboard write failed', err);
-            feedbackText.setStyle({ fill: '#f00' });
-            feedbackText.setText('Copy failed – try again!');
-          });
-      };
     }
   </script>
 </body>
