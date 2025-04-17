@@ -4446,21 +4446,20 @@ const riddles = [
       let triesLeft = 3;
       let hintsUsed = 0;
       let points = 90;
-
       const dailyRiddle = currentRiddle;
 
+      // Riddle & UI setup (unchanged)…
       scene.add.text(50, 50, "Daily Riddle:\n" + dailyRiddle.question, {
         fontSize: '24px', fill: '#fff', wordWrap: { width: 700 }
       });
-
-      const pointsText = scene.add.text(50, 150, `Points: ${points}`, { fontSize: '20px' });
-      const triesText = scene.add.text(50, 180, `Tries Left: ${triesLeft}`, { fontSize: '20px' });
-      const hintsText = scene.add.text(50, 210, `Hints Used: ${hintsUsed}`, { fontSize: '20px' });
-      const hintDisplay = scene.add.text(50, 300, "", { fontSize: '20px', fill: '#ff0', wordWrap: { width: 700 } });
+      const pointsText   = scene.add.text(50, 150, `Points: ${points}`,    { fontSize: '20px' });
+      const triesText    = scene.add.text(50, 180, `Tries Left: ${triesLeft}`, { fontSize: '20px' });
+      const hintsText    = scene.add.text(50, 210, `Hints Used: ${hintsUsed}`, { fontSize: '20px' });
+      const hintDisplay  = scene.add.text(50, 300, "", { fontSize: '20px', fill: '#ff0', wordWrap: { width: 700 } });
       const feedbackText = scene.add.text(50, 250, "", { fontSize: '20px', fill: '#f00' });
 
+      // Input, submit and hint buttons (unchanged)…
       const isMobile = window.innerWidth < 600;
-
       const inputStyle = `
         width: ${isMobile ? '90%' : '500px'};
         height: ${isMobile ? '60px' : '50px'};
@@ -4469,11 +4468,8 @@ const riddles = [
         padding: 12px;
         box-sizing: border-box;
       `;
-
       const inputElement = scene.add.dom(400, 300, 'input', {
-        type: 'text',
-        placeholder: 'Enter your answer...',
-        style: inputStyle
+        type: 'text', placeholder: 'Enter your answer…', style: inputStyle
       });
 
       const submitButton = scene.add.dom(400, 400, 'button', {
@@ -4482,7 +4478,7 @@ const riddles = [
 
       const hintButton = scene.add.dom(400, 460, 'button', {
         style: 'width:150px;height:40px;font-size:20px;'
-      }, 'Hint (-30 pts)');
+      }, 'Hint (–30 pts)');
 
       function processSubmission() {
         const userGuess = inputElement.node.value;
@@ -4531,7 +4527,48 @@ const riddles = [
           if (hintsUsed === dailyRiddle.hints.length) hintButton.node.disabled = true;
         }
       };
+      const x         = scene.scale.width  / 2;
+      const y         = scene.scale.height - (isMobile ? 100 : 60);
+      const btnWidth  = isMobile ? scene.scale.width * 0.8 : 150;
+      const fontSize  = isMobile ? '24px' : '20px';
 
+      const shareButton = scene.add.dom(x, y, 'button', {
+        style: `
+          width: ${btnWidth}px;
+          height: 40px;
+          font-size: ${fontSize};
+          background-color: #28a745;
+          color: #fff;
+          border-radius: 5px;
+          margin-top: 20px;
+        `
+      }, 'Share Score');
+
+      shareButton.node.onclick = () => {
+        const shareText = `Riddle: ${dailyRiddle.question}\nPoints: ${points}`;
+
+        if (navigator.share) {
+          // Native share sheet on mobile
+          navigator.share({ title: 'My Riddle Score', text: shareText })
+            .catch(err => {
+              console.error('Share failed:', err);
+              feedbackText.setStyle({ fill: '#f00' });
+              feedbackText.setText('Share failed.');
+            });
+        } else {
+          // Fallback: copy to clipboard
+          navigator.clipboard.writeText(shareText)
+            .then(() => {
+              feedbackText.setStyle({ fill: '#0ff' });
+              feedbackText.setText('Copied to clipboard! 🤙');
+            })
+            .catch(err => {
+              console.error('Clipboard write failed', err);
+              feedbackText.setStyle({ fill: '#f00' });
+              feedbackText.setText('Copy failed – try again.');
+            });
+        }
+      };
     }
   </script>
 </body>
