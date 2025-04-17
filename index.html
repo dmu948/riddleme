@@ -4455,13 +4455,17 @@ const riddles = [
 
     // ─── SUBMIT BUTTON ──────────────────────────────────────────────────────────
     const btnStyle = `width:150px;height:40px;font-size:${isMobile?'24px':'20px'};`;
-    const submitButton = scene.add.dom(centerX, ySubmit, 'button', { style: btnStyle }, 'Submit')
-      .addListener('click').on('click', processSubmission);
+    const submitButton = scene.add
+      .dom(centerX, ySubmit, 'button', { style: btnStyle }, 'Submit')
+      .addListener('click')             // tell Phaser to listen for clicks
+      .on('click', processSubmission);  // call our handler on each click
 
-    // allow Enter key to trigger Submit
-    inputElement.addListener('keyup');
-    inputElement.on('keyup', e => {
-      if (e.key === 'Enter') processSubmission();
+    // ─── ENTER KEY SUBMISSION ───────────────────────────────────────────────────
+    inputElement.node.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        processSubmission();
+      }
     });
 
     // ─── HINT BUTTON ────────────────────────────────────────────────────────────
