@@ -4531,7 +4531,17 @@ const riddles = [
           if (hintsUsed === dailyRiddle.hints.length) hintButton.node.disabled = true;
         }
       };
-
+      shareButton.node.onclick = () => {
+        const text = `Riddle: ${dailyRiddle.question}\nPoints: ${points}`;
+        if (navigator.share) {
+          navigator.share({ title:'My Riddle', text })
+            .catch(() => feedbackText.setText('Share failed.'));
+        } else {
+          navigator.clipboard.writeText(text)
+            .then(() => feedbackText.setText('Copied! 🤙'))
+            .catch(() => feedbackText.setText('Copy failed.'));
+        }
+      };
     }
   </script>
 </body>
