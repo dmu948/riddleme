@@ -4368,11 +4368,20 @@
 
         // Input & buttons
         const isMobile = window.innerWidth < 600;
-        const inputStyle = {
-          width: isMobile ? '80%' : '400px', height: isMobile ? '50px' : '40px',
-          fontSize: isMobile ? '24px' : '16px', borderRadius: '5px', padding: '4px'
+        const inputStyle = {$1padding: '4px'
         };
-        const answerInput = scene.add.dom(scene.scale.width/2, scene.scale.height/2 - 40, 'input', Object.assign({ type:'text', placeholder:'Enter your answer…' }, inputStyle));
+        const answerInput = scene.add.dom(
+            scene.scale.width/2,
+            scene.scale.height/2 - 40,
+            'input',
+            Object.assign({
+              type: 'text',
+              placeholder: 'Enter your answer…',
+              maxlength: '80',
+              pattern: "[A-Za-z0-9 '\-\?]+",
+              title: 'Up to 80 characters: letters, numbers, spaces, apostrophes, hyphens, question marks.'
+            }, inputStyle)
+          );
         const submitBtn = scene.add.dom(scene.scale.width/2, scene.scale.height/2 + 20, 'button', { style:'width:150px;height:24px;font-size:18px;' }, 'Submit');
         const hintBtn   = scene.add.dom(scene.scale.width/2, scene.scale.height/2 + 80, 'button', { style:'width:150px;height:24px;font-size:18px;' }, 'Hint (-30 pts)');
         const shareBtn  = scene.add.dom(scene.scale.width/2, scene.scale.height/2 + 130, 'button', { style:'width:150px;height:24px;font-size:18px;' }, 'Share');
