@@ -4354,7 +4354,7 @@
       const game = new Phaser.Game(config);
 
       function create() {
-        console.log('Phaser scene create() called');
+        //console.log('Phaser scene create() called');
         const scene = this;
         let tries = 3, hintsUsed = 0, points = 150;
 
