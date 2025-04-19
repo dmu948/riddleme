@@ -4371,24 +4371,23 @@
         const inputStyle = {$1padding: '4px'
         };
         const answerInput = scene.add.dom(
-            scene.scale.width/2,
-            scene.scale.height/2 - 40,
-            'input',
-            Object.assign({
-              type: 'text',
-              placeholder: 'Enter your answer…',
-              maxlength: '80',
-              pattern: "[A-Za-z0-9 '\-\?]+",
-              title: 'Up to 80 characters: letters, numbers, spaces, apostrophes, hyphens, question marks.'
-                  style: `
-                    width:      ${isMobile ? '80%'   : '400px'};
-                    height:     ${isMobile ? '50px'  : '40px'};
-                    font-size:  ${isMobile ? '24px'  : '16px'};
-                    border-radius: 5px;
-                    padding:       4px;
-                  `
-            }, inputStyle)
-          );
+          scene.scale.width/2,
+          scene.scale.height/2 - 40,
+          'input',
+          {
+            type: 'text',
+            placeholder: 'Enter your answer…',
+            maxlength: '80',
+            pattern: "[A-Za-z0-9 '\\-\\?]+",
+            title: 'Up to 80 characters…',
+            style: 
+              `width: ${isMobile ? '80%' : '400px'}; ` +
+              `height: ${isMobile ? '50px' : '40px'}; ` +
+              `font-size: ${isMobile ? '24px' : '16px'}; ` +
+              `border-radius: 5px; ` +
+              `padding: 4px;`
+          }
+        );
         const submitBtn = scene.add.dom(scene.scale.width/2, scene.scale.height/2 + 20, 'button', { style:'width:150px;height:24px;font-size:18px;' }, 'Submit');
         const hintBtn   = scene.add.dom(scene.scale.width/2, scene.scale.height/2 + 80, 'button', { style:'width:150px;height:24px;font-size:18px;' }, 'Hint (-30 pts)');
         const shareBtn  = scene.add.dom(scene.scale.width/2, scene.scale.height/2 + 130, 'button', { style:'width:150px;height:24px;font-size:18px;' }, 'Share');
