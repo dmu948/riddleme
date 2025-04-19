@@ -4380,6 +4380,13 @@
               maxlength: '80',
               pattern: "[A-Za-z0-9 '\-\?]+",
               title: 'Up to 80 characters: letters, numbers, spaces, apostrophes, hyphens, question marks.'
+                  style: `
+                    width:      ${isMobile ? '80%'   : '400px'};
+                    height:     ${isMobile ? '50px'  : '40px'};
+                    font-size:  ${isMobile ? '24px'  : '16px'};
+                    border-radius: 5px;
+                    padding:       4px;
+                  `
             }, inputStyle)
           );
         const submitBtn = scene.add.dom(scene.scale.width/2, scene.scale.height/2 + 20, 'button', { style:'width:150px;height:24px;font-size:18px;' }, 'Submit');
