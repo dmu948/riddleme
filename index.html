@@ -4336,151 +4336,151 @@ const riddles = [
       return result;
     }
 
-      // === Utility functions ===
-      function mulberry32(a) { /* … */ }
-      function seededShuffle(arr, seed) { /* … */ }
-      function getLocalDayOfYear(d) { /* … */ }
+    // === Utility functions ===
+    function mulberry32(a) { /* … */ }
+    function seededShuffle(arr, seed) { /* … */ }
+    function getLocalDayOfYear(d) { /* … */ }
 
-      // Normalize & validate user input
-      function normalizeString(str) {
-        return str.toLowerCase().replace(/[^a-z0-9]/g, '');
-      }
-      function isValidGuess(str) {
-        // Allow letters, numbers, spaces, apostrophes, hyphens
-        return /^[\p{L}\p{N}\s'-]+$/u.test(str);
-      }
+    // Normalize & validate user input
+    function normalizeString(str) {
+      return str.toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+    function isValidGuess(str) {
+      // Allow letters, numbers, spaces, apostrophes, hyphens
+      return /^[\p{L}\p{N}\s'-]+$/u.test(str);
+    }
 
-      function checkAnswer(guess, riddle) {
-        const norm = normalizeString(guess);
-        return riddle.acceptable.some(a => normalizeString(a) === norm);
-      }
+    function checkAnswer(guess, riddle) {
+      const norm = normalizeString(guess);
+      return riddle.acceptable.some(a => normalizeString(a) === norm);
+    }
 
-      // === Securely parse offset param ===
-      const params = new URLSearchParams(window.location.search);
-      const rawOffset = params.get('offset');
-      const offset = (rawOffset && /^\d+$/.test(rawOffset)) 
-                     ? parseInt(rawOffset, 10) 
-                     : 0;
+    // === Securely parse offset param ===
+    const params = new URLSearchParams(window.location.search);
+    const rawOffset = params.get('offset');
+    const offset = (rawOffset && /^\d+$/.test(rawOffset)) 
+                   ? parseInt(rawOffset, 10) 
+                   : 0;
 
-      // Determine today’s riddle
-      const today = new Date();
-      const dayOfYear = getLocalDayOfYear(today);
-      const shuffled = seededShuffle(riddles, today.getFullYear());
-      const current = shuffled[(dayOfYear + offset) % riddles.length];
+    // Determine today’s riddle
+    const today = new Date();
+    const dayOfYear = getLocalDayOfYear(today);
+    const shuffled = seededShuffle(riddles, today.getFullYear());
+    const current = shuffled[(dayOfYear + offset) % riddles.length];
 
-      // === Phaser config ===
-      const config = {
-        type: Phaser.AUTO,
-        parent: 'game-container',
-        dom: { createContainer: true },
-        scale: { mode: Phaser.Scale.RESIZE, autoCenter: Phaser.Scale.CENTER_BOTH },
-        scene: { create }
+    // === Phaser config ===
+    const config = {
+      type: Phaser.AUTO,
+      parent: 'game-container',
+      dom: { createContainer: true },
+      scale: { mode: Phaser.Scale.RESIZE, autoCenter: Phaser.Scale.CENTER_BOTH },
+      scene: { create }
+    };
+    new Phaser.Game(config);
+
+    function create() {
+      const scene = this;
+      let tries = 3, hintsUsed = 0, points = 150;
+
+      // Display
+      scene.add.text(20, 20, `Daily Riddle:\n${current.question}`, {
+        fontSize: '24px', fill: '#fff', wordWrap: { width: scene.scale.width - 40 }
+      });
+      const ptsText   = scene.add.text(20, 160, `Points: ${points}`,    { fontSize: '20px' });
+      const triesText= scene.add.text(20, 190, `Tries Left: ${tries}`, { fontSize: '20px' });
+      const hintText = scene.add.text(20, 220, `Hints Used: ${hintsUsed}`, { fontSize: '20px' });
+      const hintDisp = scene.add.text(20, 490, '', { fontSize: '20px', fill: '#ff0', wordWrap:{ width: scene.scale.width-40 } });
+      const feedback = scene.add.text(20, 240, '', { fontSize: '20px', fill: '#f00' });
+
+      // Input and buttons
+      const isMobile = window.innerWidth < 600;
+      const inputStyle = {
+        width: isMobile ? '80%' : '400px',
+        height: isMobile ? '50px' : '40px',
+        fontSize: isMobile ? '24px' : '20px',
+        borderRadius: '5px',
+        padding: '8px'
       };
-      new Phaser.Game(config);
+      const answerInput = scene.add.dom(
+        scene.scale.width/2, scene.scale.height/2 - 40,
+        'input', Object.assign({ type:'text', placeholder:'Enter your answer…' }, inputStyle)
+      );
+      const submitBtn = scene.add.dom(
+        scene.scale.width/2, scene.scale.height/2 + 10,
+        'button', { style:'width:150px;height:40px;font-size:18px;' }, 'Submit'
+      );
+      const hintBtn = scene.add.dom(
+        scene.scale.width/2, scene.scale.height/2 + 60,
+        'button', { style:'width:150px;height:40px;font-size:18px;' }, 'Hint (-30 pts)'
+      );
+      const shareBtn = scene.add.dom(
+        scene.scale.width/2, scene.scale.height/2 + 110,
+        'button', { style:'width:150px;height:40px;font-size:18px;' }, 'Share'
+      );
 
-      function create() {
-        const scene = this;
-        let tries = 3, hintsUsed = 0, points = 150;
-
-        // Display
-        scene.add.text(20, 20, `Daily Riddle:\n${current.question}`, {
-          fontSize: '24px', fill: '#fff', wordWrap: { width: scene.scale.width - 40 }
-        });
-        const ptsText   = scene.add.text(20, 160, `Points: ${points}`,    { fontSize: '20px' });
-        const triesText= scene.add.text(20, 190, `Tries Left: ${tries}`, { fontSize: '20px' });
-        const hintText = scene.add.text(20, 220, `Hints Used: ${hintsUsed}`, { fontSize: '20px' });
-        const hintDisp = scene.add.text(20, 490, '', { fontSize: '20px', fill: '#ff0', wordWrap:{ width: scene.scale.width-40 } });
-        const feedback = scene.add.text(20, 240, '', { fontSize: '20px', fill: '#f00' });
-
-        // Input and buttons
-        const isMobile = window.innerWidth < 600;
-        const inputStyle = {
-          width: isMobile ? '80%' : '400px',
-          height: isMobile ? '50px' : '40px',
-          fontSize: isMobile ? '24px' : '20px',
-          borderRadius: '5px',
-          padding: '8px'
-        };
-        const answerInput = scene.add.dom(
-          scene.scale.width/2, scene.scale.height/2 - 40,
-          'input', Object.assign({ type:'text', placeholder:'Enter your answer…' }, inputStyle)
-        );
-        const submitBtn = scene.add.dom(
-          scene.scale.width/2, scene.scale.height/2 + 10,
-          'button', { style:'width:150px;height:40px;font-size:18px;' }, 'Submit'
-        );
-        const hintBtn = scene.add.dom(
-          scene.scale.width/2, scene.scale.height/2 + 60,
-          'button', { style:'width:150px;height:40px;font-size:18px;' }, 'Hint (-30 pts)'
-        );
-        const shareBtn = scene.add.dom(
-          scene.scale.width/2, scene.scale.height/2 + 110,
-          'button', { style:'width:150px;height:40px;font-size:18px;' }, 'Share'
-        );
-
-        // === Submission logic ===
-        function processSubmission() {
-          const guess = answerInput.node.value.trim();
-          if (!guess) return;
-          if (!isValidGuess(guess)) {
-            feedback.setStyle({ fill:'#f90' }).setText('Invalid characters detected.');
-            return;
-          }
-          if (checkAnswer(guess, current)) {
-            const bonus = tries === 3 ? 90 : tries === 2 ? 60 : 0;
-            points += bonus;
-            ptsText.setText(`Points: ${points}`);
-            feedback.setStyle({ fill:'#0f0' })
-                    .setText(`Correct! Answer: ${current.answer}\nBonus: ${bonus}`);
-            answerInput.node.disabled = submitBtn.node.disabled = hintBtn.node.disabled = true;
-          } else {
-            points = Math.max(0, points - 30);
-            tries--;
-            triesText.setText(`Tries Left: ${tries}`);
-            ptsText.setText(`Points: ${points}`);
-            feedback.setStyle({ fill:'#f00' }).setText(`Incorrect: ${guess}`);
-            if (tries <= 0) {
-              feedback.setText(`Game Over! Answer: ${current.answer}`);
-              answerInput.node.disabled = submitBtn.node.disabled = hintBtn.node.disabled = true;
-            }
-          }
-          answerInput.node.value = '';
+      // === Submission logic ===
+      function processSubmission() {
+        const guess = answerInput.node.value.trim();
+        if (!guess) return;
+        if (!isValidGuess(guess)) {
+          feedback.setStyle({ fill:'#f90' }).setText('Invalid characters detected.');
+          return;
         }
-
-        submitBtn.node.addEventListener('click', processSubmission);
-        answerInput.node.addEventListener('keydown', e => {
-          if (e.key === 'Enter') { e.preventDefault(); processSubmission(); }
-        });
-
-        // === Hint logic ===
-        hintBtn.node.addEventListener('click', () => {
-          if (hintsUsed < current.hints.length) {
-            points = Math.max(0, points - 30);
-            hintsUsed++;
-            ptsText.setText(`Points: ${points}`);
-            hintText.setText(`Hints Used: ${hintsUsed}`);
-            hintDisp.setText(hintDisp.text + `\nHint ${hintsUsed}: ${current.hints[hintsUsed-1]}`);
-            if (hintsUsed === current.hints.length) hintBtn.node.disabled = true;
+        if (checkAnswer(guess, current)) {
+          const bonus = tries === 3 ? 90 : tries === 2 ? 60 : 0;
+          points += bonus;
+          ptsText.setText(`Points: ${points}`);
+          feedback.setStyle({ fill:'#0f0' })
+                  .setText(`Correct! Answer: ${current.answer}\nBonus: ${bonus}`);
+          answerInput.node.disabled = submitBtn.node.disabled = hintBtn.node.disabled = true;
+        } else {
+          points = Math.max(0, points - 30);
+          tries--;
+          triesText.setText(`Tries Left: ${tries}`);
+          ptsText.setText(`Points: ${points}`);
+          feedback.setStyle({ fill:'#f00' }).setText(`Incorrect: ${guess}`);
+          if (tries <= 0) {
+            feedback.setText(`Game Over! Answer: ${current.answer}`);
+            answerInput.node.disabled = submitBtn.node.disabled = hintBtn.node.disabled = true;
           }
-        });
-
-        // === Share logic with capability check + fallback ===
-        shareBtn.node.addEventListener('click', () => {
-          const message = `Riddle: ${current.question}\nPoints: ${points}`;
-          const data = { title:'Riddle Challenge', text:message };
-
-          if (navigator.share && navigator.canShare?.(data)) {
-            navigator.share(data).catch(err => console.error('Share failed:', err));
-          } else if (navigator.clipboard) {
-            navigator.clipboard.writeText(message)
-              .then(() => feedback.setText('Copied to clipboard!'))
-              .catch(err => console.error('Copy failed:', err));
-          } else {
-            // prompt fallback is generally safe here since message is plain text
-            prompt('Copy this text:', message);
-          }
-        });
+        }
+        answerInput.node.value = '';
       }
+
+      submitBtn.node.addEventListener('click', processSubmission);
+      answerInput.node.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { e.preventDefault(); processSubmission(); }
+      });
+
+      // === Hint logic ===
+      hintBtn.node.addEventListener('click', () => {
+        if (hintsUsed < current.hints.length) {
+          points = Math.max(0, points - 30);
+          hintsUsed++;
+          ptsText.setText(`Points: ${points}`);
+          hintText.setText(`Hints Used: ${hintsUsed}`);
+          hintDisp.setText(hintDisp.text + `\nHint ${hintsUsed}: ${current.hints[hintsUsed-1]}`);
+          if (hintsUsed === current.hints.length) hintBtn.node.disabled = true;
+        }
+      });
+
+      // === Share logic with capability check + fallback ===
+      shareBtn.node.addEventListener('click', () => {
+        const message = `Riddle: ${current.question}\nPoints: ${points}`;
+        const data = { title:'Riddle Challenge', text:message };
+
+        if (navigator.share && navigator.canShare?.(data)) {
+          navigator.share(data).catch(err => console.error('Share failed:', err));
+        } else if (navigator.clipboard) {
+          navigator.clipboard.writeText(message)
+            .then(() => feedback.setText('Copied to clipboard!'))
+            .catch(err => console.error('Copy failed:', err));
+        } else {
+          // prompt fallback is generally safe here since message is plain text
+          prompt('Copy this text:', message);
+        }
+      });
+    }
   </script>
 </body>
 </html>
