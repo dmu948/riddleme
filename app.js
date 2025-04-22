@@ -499,11 +499,11 @@
       },
       {
         "question": "My sound is silent, my cry unseen. I can show rage or calm, but only in the sky. What am I?",
-        "answer": "color of the sky",
-        "acceptable": ["sky color", "the sky's color", "sunset or sunrise color"],
+        "answer": "wind",
+        "acceptable": ["wind", "the wind"],
         "hints": [
-          "Sometimes I'm bright blue, sometimes stormy gray.",
-          "I change without a sound."
+          "You can feel me but not see me.",
+          "I whistle or howl when angry."
         ],
         "difficulty": "medium"
       },
