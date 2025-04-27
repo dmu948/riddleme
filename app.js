@@ -4429,34 +4429,6 @@
           }
         });
 
-        hintBtn.node.addEventListener('click', () => {
-          if (hintsUsed < current.hints.length) {
-            // Deduct points and bump counter
-            points = Math.max(0, points - 30);
-            hintsUsed++;
-            ptsText.setText(`Points: ${points}`);
-            hintText.setText(`Hints Used: ${hintsUsed}`);
-
-            // Display *only* the new hint
-            hintDisp.setText(`Hint ${hintsUsed}: ${current.hints[hintsUsed - 1]}`);
-
-            // Disable when out of hints
-            if (hintsUsed === current.hints.length) {
-              hintBtn.node.disabled = true;
-            }
-          }
-        });
-
-        shareBtn.node.addEventListener('click', () => {
-          const message = `Riddle: ${current.question}\nPoints: ${points}`;
-          if (navigator.share && navigator.canShare?.({ title: 'Riddle Challenge', text: message })) {
-            navigator.share({ title: 'Riddle Challenge', text: message }).catch(console.error);
-          } else if (navigator.clipboard) {
-            navigator.clipboard.writeText(message).then(() => feedback.setText('Copied!')).catch(console.error);
-          } else {
-            prompt('Copy this text:', message);
-          }
-        });
 
         function processSubmission() {
           const guess = answerInput.node.value.trim(); if (!guess) return;
