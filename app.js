@@ -24,12 +24,12 @@
         "difficulty": "easy"
       },
       {
-        "question": "I am bought by the yard but worn by the foot. What am I?",
-        "answer": "shoe",
-        "acceptable": ["shoe", "shoes"],
+        "question": "I am bought by the yard and walked on by the foot. What am I?",
+        "answer": "carpet",
+        "acceptable": ["carpet", "a carpet", "rug"],
         "hints": [
-          "I'm found in pairs.",
-          "I protect your toes."
+          "I'm laid out across floors.",
+          "I can be soft, decorative, and cover large areas."
         ],
         "difficulty": "medium"
       },
@@ -76,7 +76,7 @@
       {
         "question": "I can run but have no legs, travel widely but always stay in one piece. What am I?",
         "answer": "nose",
-        "acceptable": ["nose"],
+        "acceptable": ["nose", "a nose"],
         "hints": [
           "I'm on your face.",
           "When I'm 'runny,' it's not a good sign."
@@ -106,7 +106,7 @@
       {
         "question": "I'm a question you can answer without saying a word. What am I?",
         "answer": "riddle",
-        "acceptable": ["riddle", "a riddle"],
+        "acceptable": ["riddle", "a riddle", "puzzle", "a puzzle"],
         "hints": [
           "You often find me puzzling.",
           "I can exist in books or in conversation."
@@ -116,7 +116,7 @@
       {
         "question": "My tail is pinned, yet I run free. On paper, I might belong to you. What am I?",
         "answer": "kite",
-        "acceptable": ["kite"],
+        "acceptable": ["kite", "a kite"],
         "hints": [
           "I love the wind.",
           "I'm held by a string."
@@ -126,7 +126,7 @@
       {
         "question": "I never get off the ground, yet I can move mountains with just a whisper. What am I?",
         "answer": "idea",
-        "acceptable": ["idea", "a thought", "thought"],
+        "acceptable": ["idea", "a thought", "thought", "a concept", "concept"],
         "hints": [
           "I exist in your mind.",
           "I can change the world if powerful enough."
@@ -136,7 +136,7 @@
       {
         "question": "I'm ancient but can be brand new. I'm told in words yet not always true. What am I?",
         "answer": "story",
-        "acceptable": ["story", "a story", "tale"],
+        "acceptable": ["story", "a story", "tale", "a myth", "myth"],
         "hints": [
           "I can be fiction or nonfiction.",
           "You might read me or hear me."
@@ -166,7 +166,7 @@
       {
         "question": "I change shape but never leave my container, always working silently within. What am I?",
         "answer": "shadow",
-        "acceptable": ["shadow", "a shadow"],
+        "acceptable": ["shadow", "a shadow", "shade"],
         "hints": [
           "I depend on a light source.",
           "I can stretch, shrink, or vanish."
@@ -179,7 +179,8 @@
         "acceptable": [
           "a metaphor for life's stages",
           "human aging metaphor",
-          "stages of a human life"
+          "stages of a human life",
+          "life"
         ],
         "hints": [
           "It's a twist on a famous Greek myth's riddle.",
@@ -190,7 +191,7 @@
       {
         "question": "I hold seeds but I'm not a farmer. Birds love me, but you might too. What am I?",
         "answer": "sunflower",
-        "acceptable": ["sunflower"],
+        "acceptable": ["sunflower", "a sunflower"],
         "hints": [
           "I track the sun in the sky.",
           "My seeds can be eaten."
@@ -210,7 +211,7 @@
       {
         "question": "I have many keys but open no locks. I can help you write. What am I?",
         "answer": "keyboard",
-        "acceptable": ["keyboard", "a keyboard"],
+        "acceptable": ["keyboard", "a keyboard", "computer keyboard"],
         "hints": [
           "I might be connected to a computer.",
           "I used to be on typewriters."
@@ -220,7 +221,8 @@
       {
         "question": "I twist and I turn, but I'm not a dancer. Some say I'm puzzling to master. What am I?",
         "answer": "Rubik's Cube",
-        "acceptable": ["rubik's cube", "cube"],
+        "acceptable": ["Rubik's Cube", "rubik's cube", "cube", "puzzle cube"
+        ],
         "hints": [
           "I have colorful faces.",
           "I'm a 3D puzzle."
@@ -260,7 +262,7 @@
       {
         "question": "I'm just one color, but not one size. I'm stuck in place, yet easily drawn on. What am I?",
         "answer": "blackboard",
-        "acceptable": ["blackboard", "chalkboard"],
+        "acceptable": ["blackboard", "chalkboard", "a blackboard", "a chalkboard"],
         "hints": [
           "Teachers use me.",
           "Chalk is my companion."
@@ -290,7 +292,7 @@
       {
         "question": "I float without wings, shining at night, but I'm not the moon. What am I?",
         "answer": "star",
-        "acceptable": ["star"],
+        "acceptable": ["star", "a star"],
         "hints": [
           "I'm a celestial body.",
           "I'm visible mostly after sunset."
@@ -420,7 +422,7 @@
       {
         "question": "I am only visible when you look away, and I vanish if you stare too long. What am I?",
         "answer": "star in peripheral vision",
-        "acceptable": ["star in peripheral vision", "dim star", "faint star"],
+        "acceptable": ["star in peripheral vision", "dim star", "faint star", "averted vision star"],
         "hints": [
           "This is related to how human eyes work in low light.",
           "Astronomers use averted vision to see me."
@@ -660,7 +662,7 @@
       {
         "question": "I change from minutes to hours but never from day to night. What am I?",
         "answer": "watch face",
-        "acceptable": ["watch face", "clock face"],
+        "acceptable": ["watch face", "clock face", "dial", "watch dial"],
         "hints": [
           "You see me on your wrist or wall.",
           "I display time but no AM/PM indicator."
@@ -1544,7 +1546,7 @@
       {
         "question": "I am a silent teacher, showing patterns of logic, yet I'm on paper, not in lectures. What am I?",
         "answer": "puzzle",
-        "acceptable": ["puzzle", "crossword puzzle", "logic puzzle"],
+        "acceptable": ["puzzle", "crossword puzzle", "logic puzzle", "a puzzle"],
         "hints": [
           "You solve me to train your mind.",
           "I provide a challenge or riddle on a page."
