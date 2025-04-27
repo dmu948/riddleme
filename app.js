@@ -4379,7 +4379,7 @@
           `Daily Riddle:\n${current.question}`,
           { fontSize: dynamicFontSize, fill:'#fff', wordWrap:{ width: scene.scale.width*0.9 } }
         );
-        y += riddleText.height + 30;                      // gap
+        y += riddleText.height + 40;                      // gap
 
         // ---------- score lines ----------
         const ptsText   = scene.add.text(marginX, y, `Points: ${points}`,   { fontSize: dynamicHintFontSize, fill:'#fff' }); y += ptsText.height + 10;
