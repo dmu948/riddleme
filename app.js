@@ -4367,6 +4367,8 @@
       function create () {
         const scene   = this;
         const isMobile = window.innerWidth < 600;
+        const dynamicFontSize     = window.innerWidth < 500 ? '16px' : '24px';
+        const dynamicHintFontSize = window.innerWidth < 500 ? '14px' : '20px';
 
         // --- layout helpers ---
         const marginX = scene.scale.width * 0.05;
