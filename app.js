@@ -4389,7 +4389,7 @@
         // ---------- feedback + hints ----------
         const feedback  = scene.add.text(marginX, y, '', { fontSize: dynamicHintFontSize, fill:'#f00' }); y += feedback.height + 10;
         const hintDisp  = scene.add.text(marginX, y, '', { fontSize: dynamicHintFontSize, fill:'#ff0', wordWrap:{ width: scene.scale.width*0.9 } });
-        y += hintDisp.height + 30;
+        y += hintDisp.height + 10;
 
         // ---------- input ----------
         const answerInput = scene.add.dom(
