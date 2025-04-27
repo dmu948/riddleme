@@ -4365,8 +4365,8 @@
       };
       const game = new Phaser.Game(config);
       const isMobile = window.innerWidth < 600;
-      const dynamicFontSize = scene.scale.width < 500 ? '16px' : '24px';
-      const dynamicHintFontSize = scene.scale.width < 500 ? '14px' : '20px';
+      const dynamicFontSize     = window.innerWidth < 500 ? '16px' : '24px';
+      const dynamicHintFontSize = window.innerWidth < 500 ? '14px' : '20px';
       function create() {
         //console.log('Phaser scene create() called');
         const scene = this;
