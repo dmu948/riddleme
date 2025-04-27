@@ -4479,10 +4479,27 @@
 
         hintBtn.node.addEventListener('click', () => {
           if (hintsUsed < current.hints.length) {
-            points = Math.max(0, points - 30); hintsUsed++; ptsText.setText(`Points: ${points}`);
+            // 1. Deduct points and increment counter
+            points = Math.max(0, points - 30);
+            hintsUsed++;
+            ptsText.setText(`Points: ${points}`);
             hintText.setText(`Hints Used: ${hintsUsed}`);
-            hintDisp.setText(`${hintDisp.text}\nHint ${hintsUsed}: ${current.hints[hintsUsed-1]}`);
-            if (hintsUsed===current.hints.length) hintBtn.node.disabled=true;
+
+            // 2. Grab the new hint
+            const newHint = current.hints[hintsUsed - 1];
+
+            // 3. Prepend it under the existing hintDisp text
+            const previous = hintDisp.text; // getText() in older Phaser versions
+            hintDisp.setText(
+              previous
+                ? `${previous}\nHint ${hintsUsed}: ${newHint}`
+                : `Hint ${hintsUsed}: ${newHint}`
+            );
+
+            // 4. Disable once all hints shown
+            if (hintsUsed === current.hints.length) {
+              hintBtn.node.disabled = true;
+            }
           }
         });
 
