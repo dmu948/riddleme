@@ -4389,7 +4389,7 @@
         // ---------- feedback + hints ----------
         const feedback  = scene.add.text(marginX, y, '', { fontSize: dynamicHintFontSize, fill:'#f00' }); y += feedback.height + 10;
         const hintDisp  = scene.add.text(marginX, y, '', { fontSize: dynamicHintFontSize, fill:'#ff0', wordWrap:{ width: scene.scale.width*0.9 } });
-        y += hintDisp.height + 10;
+        y += hintDisp.height + 30;
 
         // ---------- input ----------
         const answerInput = scene.add.dom(
@@ -4430,13 +4430,21 @@
         });
 
         hintBtn.node.addEventListener('click', () => {
-          // hint logic copied from below
-          points = Math.max(0, points - 30);
-          hintsUsed++;
-          ptsText.setText(`Points: ${points}`);
-          hintText.setText(`Hints Used: ${hintsUsed}`);
-          hintDisp.setText(`${hintDisp.text}\nHint ${hintsUsed}: ${current.hints[hintsUsed-1]}`);
-          if (hintsUsed === current.hints.length) hintBtn.node.disabled = true;
+          if (hintsUsed < current.hints.length) {
+            // Deduct points and bump counter
+            points = Math.max(0, points - 30);
+            hintsUsed++;
+            ptsText.setText(`Points: ${points}`);
+            hintText.setText(`Hints Used: ${hintsUsed}`);
+
+            // Display *only* the new hint
+            hintDisp.setText(`Hint ${hintsUsed}: ${current.hints[hintsUsed - 1]}`);
+
+            // Disable when out of hints
+            if (hintsUsed === current.hints.length) {
+              hintBtn.node.disabled = true;
+            }
+          }
         });
 
         shareBtn.node.addEventListener('click', () => {
