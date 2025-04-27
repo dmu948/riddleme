@@ -4270,7 +4270,7 @@
       {
         "question": "I'm the silent partner of an ink pen, overshadowed yet vital for function. What am I?",
         "answer": "pen spring (the internal spring)",
-        "acceptable": ["spring in a pen", "pen spring"],
+        "acceptable": ["spring in a pen", "pen spring", "spring"],
         "hints": [
           "Helps the tip retract in a click pen.",
           "You rarely see me unless you take the pen apart."
