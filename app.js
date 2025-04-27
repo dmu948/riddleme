@@ -4348,10 +4348,20 @@
       // === Phaser config ===
       const config = {
         type: Phaser.AUTO,
-        parent: 'game-container',
-        dom: { createContainer: true },
-        scale: { mode: Phaser.Scale.RESIZE, autoCenter: Phaser.Scale.CENTER_BOTH },
-        scene: { create }
+        width: window.innerWidth,
+        height: window.innerHeight,
+        backgroundColor: '#222222',  // dark gray background
+        scale: {
+          mode: Phaser.Scale.RESIZE,
+          autoCenter: Phaser.Scale.CENTER_BOTH
+        },
+        scene: {
+          create: create
+        },
+        parent: 'game-container',  // id of the div where you want the game
+        dom: {
+          createContainer: true
+        }
       };
       const game = new Phaser.Game(config);
       const isMobile = window.innerWidth < 600;
