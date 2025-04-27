@@ -4363,18 +4363,10 @@
           createContainer: true
         }
       };
-      const game = new Phaser.Game(config);
-      const isMobile = window.innerWidth < 600;
-      const dynamicFontSize     = window.innerWidth < 500 ? '16px' : '24px';
-      const dynamicHintFontSize = window.innerWidth < 500 ? '14px' : '20px';
 
       function create () {
         const scene   = this;
         const isMobile = window.innerWidth < 600;
-
-        // responsive font sizes – now that we have scene we can read scale safely
-        const dynamicFontSize      = scene.scale.width < 500 ? '18px' : '28px';
-        const dynamicHintFontSize  = scene.scale.width < 500 ? '16px' : '22px';
 
         // --- layout helpers ---
         const marginX = scene.scale.width * 0.05;
