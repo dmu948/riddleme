@@ -4424,16 +4424,35 @@
         const shareBtn  = scene.add.dom(scene.scale.width/2, y + 145, 'button',
                                         { style:'width:150px;height:28px;font-size:18px;' }, 'Share');
 
-        // === helper functions are unchanged ===
-        function processSubmission () { … }
+        // hook up event listeners
         submitBtn.node.addEventListener('click', processSubmission);
         answerInput.node.addEventListener('keydown', e => {
-          if (e.key === 'Enter') { e.preventDefault(); processSubmission(); }
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            processSubmission();
+          }
         });
 
-        hintBtn.node.addEventListener('click', () => { … });
+        hintBtn.node.addEventListener('click', () => {
+          // hint logic copied from below
+          points = Math.max(0, points - 30);
+          hintsUsed++;
+          ptsText.setText(`Points: ${points}`);
+          hintText.setText(`Hints Used: ${hintsUsed}`);
+          hintDisp.setText(`${hintDisp.text}\nHint ${hintsUsed}: ${current.hints[hintsUsed-1]}`);
+          if (hintsUsed === current.hints.length) hintBtn.node.disabled = true;
+        });
 
-        shareBtn.node.addEventListener('click', () => { … });
+        shareBtn.node.addEventListener('click', () => {
+          const message = `Riddle: ${current.question}\nPoints: ${points}`;
+          if (navigator.share && navigator.canShare?.({ title: 'Riddle Challenge', text: message })) {
+            navigator.share({ title: 'Riddle Challenge', text: message }).catch(console.error);
+          } else if (navigator.clipboard) {
+            navigator.clipboard.writeText(message).then(() => feedback.setText('Copied!')).catch(console.error);
+          } else {
+            prompt('Copy this text:', message);
+          }
+        });
       }
 
         function processSubmission() {
