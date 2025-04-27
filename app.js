@@ -4413,11 +4413,11 @@
         );
 
         // ---------- buttons ----------
-        const submitBtn = scene.add.dom(scene.scale.width/2, y + 45,  'button',
+        const submitBtn = scene.add.dom(scene.scale.width/2, y + 40,  'button',
                                         { style:'width:150px;height:20px;font-size:14px;' }, 'Submit');
-        const hintBtn   = scene.add.dom(scene.scale.width/2, y + 95,  'button',
+        const hintBtn   = scene.add.dom(scene.scale.width/2, y + 90,  'button',
                                         { style:'width:150px;height:20px;font-size:14px;' }, 'Hint (-30 pts)');
-        const shareBtn  = scene.add.dom(scene.scale.width/2, y + 145, 'button',
+        const shareBtn  = scene.add.dom(scene.scale.width/2, y + 140, 'button',
                                         { style:'width:150px;height:20px;font-size:14px;' }, 'Share');
 
         // hook up event listeners
