@@ -4363,7 +4363,7 @@
       function create () {
         const scene   = this;
         const isMobile = window.innerWidth < 600;
-        const dynamicFontSize     = window.innerWidth < 500 ? '16px' : '24px';
+        const dynamicFontSize     = window.innerWidth < 500 ? '14px' : '20px';
         const dynamicHintFontSize = window.innerWidth < 500 ? '14px' : '20px';
 
         // --- layout helpers ---
@@ -4405,7 +4405,7 @@
             style: `
               width: ${scene.scale.width < 500 ? '80%' : '400px'};
               height: ${scene.scale.width < 500 ? '50px' : '40px'};
-              font-size: ${scene.scale.width < 500 ? '22px' : '16px'};
+              font-size: ${scene.scale.width < 500 ? '20px' : '14px'};
               border-radius: 5px;
               padding: 4px;
             `
@@ -4414,11 +4414,11 @@
 
         // ---------- buttons ----------
         const submitBtn = scene.add.dom(scene.scale.width/2, y + 45,  'button',
-                                        { style:'width:150px;height:28px;font-size:18px;' }, 'Submit');
+                                        { style:'width:150px;height:20px;font-size:14px;' }, 'Submit');
         const hintBtn   = scene.add.dom(scene.scale.width/2, y + 95,  'button',
-                                        { style:'width:150px;height:28px;font-size:18px;' }, 'Hint (-30 pts)');
+                                        { style:'width:150px;height:20px;font-size:14px;' }, 'Hint (-30 pts)');
         const shareBtn  = scene.add.dom(scene.scale.width/2, y + 145, 'button',
-                                        { style:'width:150px;height:28px;font-size:18px;' }, 'Share');
+                                        { style:'width:150px;height:20px;font-size:14px;' }, 'Share');
 
         // hook up event listeners
         submitBtn.node.addEventListener('click', processSubmission);
