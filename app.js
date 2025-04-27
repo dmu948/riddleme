@@ -4367,50 +4367,44 @@
       const isMobile = window.innerWidth < 600;
       const dynamicFontSize     = window.innerWidth < 500 ? '16px' : '24px';
       const dynamicHintFontSize = window.innerWidth < 500 ? '14px' : '20px';
-      function create() {
-        //console.log('Phaser scene create() called');
-        const scene = this;
+
+      function create () {
+        const scene   = this;
+        const isMobile = window.innerWidth < 600;
+
+        // responsive font sizes – now that we have scene we can read scale safely
+        const dynamicFontSize      = scene.scale.width < 500 ? '18px' : '28px';
+        const dynamicHintFontSize  = scene.scale.width < 500 ? '16px' : '22px';
+
+        // --- layout helpers ---
+        const marginX = scene.scale.width * 0.05;
+        let   y       = scene.scale.height * 0.05;        // start 5 % from the top
+
+        // game-state
         let tries = 3, hintsUsed = 0, points = 150;
 
-        // Display
-        scene.add.text(scene.scale.width * 0.05, scene.scale.height * 0.05, `Daily Riddle:\n${current.question}`, {
-          fontSize: dynamicFontSize,
-          fill: '#fff',
-          wordWrap: { width: scene.scale.width * 0.9 }
-        });
+        // ---------- title + riddle ----------
+        const riddleText = scene.add.text(
+          marginX, y,
+          `Daily Riddle:\n${current.question}`,
+          { fontSize: dynamicFontSize, fill:'#fff', wordWrap:{ width: scene.scale.width*0.9 } }
+        );
+        y += riddleText.height + 30;                      // gap
 
-        const ptsText = scene.add.text(scene.scale.width * 0.05, scene.scale.height * 0.25, `Points: ${points}`, {
-          fontSize: dynamicHintFontSize,
-          fill: '#fff'
-        });
+        // ---------- score lines ----------
+        const ptsText   = scene.add.text(marginX, y, `Points: ${points}`,   { fontSize: dynamicHintFontSize, fill:'#fff' }); y += ptsText.height + 10;
+        const triesText = scene.add.text(marginX, y, `Tries Left: ${tries}`,{ fontSize: dynamicHintFontSize, fill:'#fff' }); y += triesText.height + 10;
+        const hintText  = scene.add.text(marginX, y, `Hints Used: ${hintsUsed}`, { fontSize: dynamicHintFontSize, fill:'#fff' }); y += hintText.height + 20;
 
-        const triesText = scene.add.text(scene.scale.width * 0.05, scene.scale.height * 0.30, `Tries Left: ${tries}`, {
-          fontSize: dynamicHintFontSize,
-          fill: '#fff'
-        });
+        // ---------- feedback + hints ----------
+        const feedback  = scene.add.text(marginX, y, '', { fontSize: dynamicHintFontSize, fill:'#f00' }); y += feedback.height + 10;
+        const hintDisp  = scene.add.text(marginX, y, '', { fontSize: dynamicHintFontSize, fill:'#ff0', wordWrap:{ width: scene.scale.width*0.9 } });
+        y += hintDisp.height + 30;
 
-        const hintText = scene.add.text(scene.scale.width * 0.05, scene.scale.height * 0.35, `Hints Used: ${hintsUsed}`, {
-          fontSize: dynamicHintFontSize,
-          fill: '#fff'
-        });
-
-        const hintDisp = scene.add.text(scene.scale.width * 0.05, scene.scale.height * 0.45, '', {
-          fontSize: dynamicHintFontSize,
-          fill: '#ff0',
-          wordWrap: { width: scene.scale.width * 0.9 }
-        });
-
-        const feedback = scene.add.text(scene.scale.width * 0.05, scene.scale.height * 0.40, '', {
-          fontSize: dynamicHintFontSize,
-          fill: '#f00'
-        });
-
-        // Input & buttons
-        const isMobile = window.innerWidth < 600;
-        //const inputStyle = {$1padding: '4px'};
+        // ---------- input ----------
         const answerInput = scene.add.dom(
           scene.scale.width / 2,
-          scene.scale.height / 2,
+          y,
           'input',
           {
             type: 'text',
@@ -4427,9 +4421,26 @@
             `
           }
         );
-        const submitBtn = scene.add.dom(scene.scale.width/2, scene.scale.height/2 + 20, 'button', { style:'width:150px;height:24px;font-size:18px;' }, 'Submit');
-        const hintBtn   = scene.add.dom(scene.scale.width/2, scene.scale.height/2 + 80, 'button', { style:'width:150px;height:24px;font-size:18px;' }, 'Hint (-30 pts)');
-        const shareBtn  = scene.add.dom(scene.scale.width/2, scene.scale.height/2 + 130, 'button', { style:'width:150px;height:24px;font-size:18px;' }, 'Share');
+
+        // ---------- buttons ----------
+        const submitBtn = scene.add.dom(scene.scale.width/2, y + 45,  'button',
+                                        { style:'width:150px;height:28px;font-size:18px;' }, 'Submit');
+        const hintBtn   = scene.add.dom(scene.scale.width/2, y + 95,  'button',
+                                        { style:'width:150px;height:28px;font-size:18px;' }, 'Hint (-30 pts)');
+        const shareBtn  = scene.add.dom(scene.scale.width/2, y + 145, 'button',
+                                        { style:'width:150px;height:28px;font-size:18px;' }, 'Share');
+
+        // === helper functions are unchanged ===
+        function processSubmission () { … }
+        submitBtn.node.addEventListener('click', processSubmission);
+        answerInput.node.addEventListener('keydown', e => {
+          if (e.key === 'Enter') { e.preventDefault(); processSubmission(); }
+        });
+
+        hintBtn.node.addEventListener('click', () => { … });
+
+        shareBtn.node.addEventListener('click', () => { … });
+      }
 
         function processSubmission() {
           const guess = answerInput.node.value.trim(); if (!guess) return;
