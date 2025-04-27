@@ -4387,7 +4387,7 @@
         const hintText  = scene.add.text(marginX, y, `Hints Used: ${hintsUsed}`, { fontSize: dynamicHintFontSize, fill:'#fff' }); y += hintText.height + 20;
 
         // ---------- feedback + hints ----------
-        const feedback  = scene.add.text(marginX, y, '', { fontSize: dynamicHintFontSize, fill:'#f00' }); y += feedback.height + 10;
+        const feedback  = scene.add.text(marginX, y, '', { fontSize: dynamicHintFontSize, fill:'#f00' }); y += feedback.height + 20;
         const hintDisp  = scene.add.text(marginX, y, '', { fontSize: dynamicHintFontSize, fill:'#ff0', wordWrap:{ width: scene.scale.width*0.9 } });
         y += hintDisp.height + 90;
 
