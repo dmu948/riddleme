@@ -4354,27 +4354,54 @@
         scene: { create }
       };
       const game = new Phaser.Game(config);
-
+      const isMobile = window.innerWidth < 600;
+      const dynamicFontSize = scene.scale.width < 500 ? '16px' : '24px';
+      const dynamicHintFontSize = scene.scale.width < 500 ? '14px' : '20px';
       function create() {
         //console.log('Phaser scene create() called');
         const scene = this;
         let tries = 3, hintsUsed = 0, points = 150;
 
         // Display
-        scene.add.text(20, 20, `Daily Riddle:\n${current.question}`, { fontSize: '24px', fill: '#fff', wordWrap: { width: scene.scale.width - 40 } });
-        const ptsText  = scene.add.text(20, 160, `Points: ${points}`, { fontSize: '20px' });
-        const triesText= scene.add.text(20, 190, `Tries Left: ${tries}`, { fontSize: '20px' });
-        const hintText = scene.add.text(20, 220, `Hints Used: ${hintsUsed}`, { fontSize: '20px' });
-        const hintDisp = scene.add.text(20, 500, '', { fontSize: '20px', fill: '#ff0', wordWrap:{ width: scene.scale.width - 40 } });
-        const feedback= scene.add.text(20, 240, '', { fontSize: '20px', fill: '#f00' });
+        scene.add.text(scene.scale.width * 0.05, scene.scale.height * 0.05, `Daily Riddle:\n${current.question}`, {
+          fontSize: dynamicFontSize,
+          fill: '#fff',
+          wordWrap: { width: scene.scale.width * 0.9 }
+        });
+
+        const ptsText = scene.add.text(scene.scale.width * 0.05, scene.scale.height * 0.25, `Points: ${points}`, {
+          fontSize: dynamicHintFontSize,
+          fill: '#fff'
+        });
+
+        const triesText = scene.add.text(scene.scale.width * 0.05, scene.scale.height * 0.30, `Tries Left: ${tries}`, {
+          fontSize: dynamicHintFontSize,
+          fill: '#fff'
+        });
+
+        const hintText = scene.add.text(scene.scale.width * 0.05, scene.scale.height * 0.35, `Hints Used: ${hintsUsed}`, {
+          fontSize: dynamicHintFontSize,
+          fill: '#fff'
+        });
+
+        const hintDisp = scene.add.text(scene.scale.width * 0.05, scene.scale.height * 0.45, '', {
+          fontSize: dynamicHintFontSize,
+          fill: '#ff0',
+          wordWrap: { width: scene.scale.width * 0.9 }
+        });
+
+        const feedback = scene.add.text(scene.scale.width * 0.05, scene.scale.height * 0.40, '', {
+          fontSize: dynamicHintFontSize,
+          fill: '#f00'
+        });
 
         // Input & buttons
         const isMobile = window.innerWidth < 600;
         const inputStyle = {$1padding: '4px'
         };
         const answerInput = scene.add.dom(
-          scene.scale.width/2,
-          scene.scale.height/2 - 40,
+          scene.scale.width / 2,
+          scene.scale.height / 2,
           'input',
           {
             type: 'text',
@@ -4382,12 +4409,13 @@
             maxlength: '80',
             pattern: "[A-Za-z0-9 '\\-\\?]+",
             title: 'Up to 80 characters…',
-            style: 
-              `width: ${isMobile ? '80%' : '400px'}; ` +
-              `height: ${isMobile ? '50px' : '40px'}; ` +
-              `font-size: ${isMobile ? '24px' : '16px'}; ` +
-              `border-radius: 5px; ` +
-              `padding: 4px;`
+            style: `
+              width: ${scene.scale.width < 500 ? '80%' : '400px'};
+              height: ${scene.scale.width < 500 ? '50px' : '40px'};
+              font-size: ${scene.scale.width < 500 ? '22px' : '16px'};
+              border-radius: 5px;
+              padding: 4px;
+            `
           }
         );
         const submitBtn = scene.add.dom(scene.scale.width/2, scene.scale.height/2 + 20, 'button', { style:'width:150px;height:24px;font-size:18px;' }, 'Submit');
