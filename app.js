@@ -4397,7 +4397,7 @@
 
         // Input & buttons
         const isMobile = window.innerWidth < 600;
-        const inputStyle = {$1padding: '4px'};
+        //const inputStyle = {$1padding: '4px'};
         const answerInput = scene.add.dom(
           scene.scale.width / 2,
           scene.scale.height / 2,
