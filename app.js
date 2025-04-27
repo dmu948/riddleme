@@ -4363,8 +4363,8 @@
       function create () {
         const scene   = this;
         const isMobile = window.innerWidth < 600;
-        const dynamicFontSize     = window.innerWidth < 500 ? '14px' : '20px';
-        const dynamicHintFontSize = window.innerWidth < 500 ? '14px' : '20px';
+        const dynamicFontSize     = window.innerWidth < 500 ? '16px' : '24px';
+        const dynamicHintFontSize = window.innerWidth < 500 ? '16px' : '24px';
 
         // --- layout helpers ---
         const marginX = scene.scale.width * 0.05;
@@ -4405,7 +4405,7 @@
             style: `
               width: ${scene.scale.width < 500 ? '80%' : '400px'};
               height: ${scene.scale.width < 500 ? '50px' : '40px'};
-              font-size: ${scene.scale.width < 500 ? '24px' : '16px'};
+              font-size: ${scene.scale.width < 500 ? '28px' : '16px'};
               border-radius: 5px;
               padding: 4px;
             `
