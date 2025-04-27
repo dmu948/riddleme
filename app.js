@@ -4405,7 +4405,7 @@
             style: `
               width: ${scene.scale.width < 500 ? '80%' : '400px'};
               height: ${scene.scale.width < 500 ? '50px' : '40px'};
-              font-size: ${scene.scale.width < 500 ? '20px' : '14px'};
+              font-size: ${scene.scale.width < 500 ? '24px' : '14px'};
               border-radius: 5px;
               padding: 4px;
             `
