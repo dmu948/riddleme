@@ -4453,7 +4453,6 @@
             prompt('Copy this text:', message);
           }
         });
-      }
 
         function processSubmission() {
           const guess = answerInput.node.value.trim(); if (!guess) return;
