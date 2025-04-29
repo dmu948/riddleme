@@ -2016,7 +2016,7 @@
       {
         "question": "I can show you the world but cannot move, reflect your history but have no memory. What am I?",
         "answer": "photo album",
-        "acceptable": ["photo album", "album"],
+        "acceptable": ["photo album", "album", "photo", "photograph"],
         "hints": [
           "Filled with pictures you've taken.",
           "Captures moments in time."
