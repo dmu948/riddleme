@@ -3742,7 +3742,7 @@
       {
         "question": "I come in hundreds or thousands, arranged in patterns, found in a grid but not a spreadsheet. What am I?",
         "answer": "mosaic tile",
-        "acceptable": ["mosaic", "tiles"],
+        "acceptable": ["mosaic", "tiles", "tile"],
         "hints": [
           "Often colorful, used in decorative artwork or flooring.",
           "Pieces can form a larger image or pattern."
