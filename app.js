@@ -3462,7 +3462,7 @@
       {
         "question": "I keep your hands off the heat but have no hands myself, often found in kitchens. What am I?",
         "answer": "oven mitt",
-        "acceptable": ["oven mitt", "oven glove"],
+        "acceptable": ["oven mitt", "oven glove", "pot holder"],
         "hints": [
           "Padded protection for handling hot dishes.",
           "Frequently hung near the stove or oven."
