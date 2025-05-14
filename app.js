@@ -2958,9 +2958,9 @@
       },
       {
         "question": "I stand on a stage but never bow; I'm essential to many shows. What am I?",
-        "answer": "microphone stand", "boom mic stand","mic stand", "boom mic"
-        "acceptable": ["mic stand", "microphone stand"],
-        "hints": [
+        "answer": "microphone stand",
+        "acceptable": ["mic stand", "microphone stand", "boom mic stand", "boom mic"],
+                "hints": [
           "Supports a microphone for singers or speakers.",
           "Usually made of metal with adjustable height."
         ],
