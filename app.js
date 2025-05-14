@@ -6,7 +6,7 @@
       {
         "question": "What dances without feet but taps on your roof when it's time to meet?",
         "answer": "rain",
-        "acceptable": ["rain"],
+        "acceptable": ["rain", "the rain"],
         "hints": [
           "I fall from the sky.",
           "My sound can be soothing or loud."
@@ -16,7 +16,7 @@
       {
         "question": "I have a face that never frowns, hands that never wave, yet I can move on my own. What am I?",
         "answer": "clock",
-        "acceptable": ["clock"],
+        "acceptable": ["clock", "a clock"],
         "hints": [
           "I measure something you experience constantly.",
           "I have numbers or marks around my face."
@@ -46,7 +46,7 @@
       {
         "question": "I exist between mountain and sea, but remove my first letter, and you still have me. What am I?",
         "answer": "land",
-        "acceptable": ["land"],
+        "acceptable": ["land", "the land"],
         "hints": [
           "Removing 'l' leaves 'and', which can be read as something linking two things (mountain and sea).",
           "I stretch across the earth's surface."
@@ -96,7 +96,7 @@
       {
         "question": "I can move slowly or quickly, but I always point in the same direction. What am I?",
         "answer": "compass needle",
-        "acceptable": ["compass needle", "a compass needle", "compass"],
+        "acceptable": ["compass needle", "a compass needle", "compass", "a compass"],
         "hints": [
           "I'm affected by Earth's magnetic field.",
           "I'm used for navigation."
@@ -242,7 +242,7 @@
       {
         "question": "I live on paper and in digital realms; I show you places near and far. What am I?",
         "answer": "map",
-        "acceptable": ["map", "atlas"],
+        "acceptable": ["map", "atlas", "a map"],
         "hints": [
           "I help you navigate.",
           "I have lines and symbols representing roads, borders, etc."
@@ -252,7 +252,7 @@
       {
         "question": "I carry an important message but lack a mouth to speak. I'm sealed and sometimes stamped. What am I?",
         "answer": "envelope",
-        "acceptable": ["envelope", "letter envelope"],
+        "acceptable": ["envelope", "letter envelope", "an envelope"],
         "hints": [
           "I'm used for mail.",
           "I have a flap."
@@ -372,7 +372,7 @@
       {
         "question": "I can show you illusions yet not a magician. I'm flat and bright, but not a light. What am I?",
         "answer": "screen",
-        "acceptable": ["screen", "phone screen", "television screen", "computer screen"],
+        "acceptable": ["screen", "phone screen", "television screen", "computer screen", "a screen"],
         "hints": [
           "You likely look at me daily.",
           "I can display many images."
@@ -392,7 +392,7 @@
       {
         "question": "I bow to the sun but never leave my place, spreading petals in a golden face. What am I?",
         "answer": "sunflower",
-        "acceptable": ["sunflower"],
+        "acceptable": ["sunflower", "a sunflower"],
         "hints": [
           "I produce edible seeds.",
           "I often turn to follow sunlight."
@@ -482,7 +482,7 @@
       {
         "question": "I greet you every morning, but I'm not a person or a pet. I can be bright or hidden behind clouds. What am I?",
         "answer": "sunrise",
-        "acceptable": ["sunrise", "the sun"],
+        "acceptable": ["sunrise", "the sun", "a sunrise"],
         "hints": [
           "It happens daily in the east.",
           "Signals the start of a new day."
@@ -552,7 +552,7 @@
       {
         "question": "I come after the storm, but I'm not the calm. I'm colorful yet have no form. What am I?",
         "answer": "rainbow",
-        "acceptable": ["rainbow"],
+        "acceptable": ["rainbow", "a rainbow"],
         "hints": [
           "I'm a spectrum of light.",
           "I'm an arc in the sky."
@@ -562,7 +562,7 @@
       {
         "question": "I echo with the steps of many, though I'm just a structure. Up or down, I'm helpful. What am I?",
         "answer": "stairs",
-        "acceptable": ["stairs", "staircase", "steps"],
+        "acceptable": ["stairs", "staircase", "steps", "a flight of stairs"],
         "hints": [
           "I help you change levels in a building.",
           "I'm often next to an elevator."
@@ -662,7 +662,7 @@
       {
         "question": "I change from minutes to hours but never from day to night. What am I?",
         "answer": "watch face",
-        "acceptable": ["watch face", "clock face", "dial", "watch dial"],
+        "acceptable": ["watch face", "a watch face", "clock face", "dial", "watch dial"],
         "hints": [
           "You see me on your wrist or wall.",
           "I display time but no AM/PM indicator."
@@ -2958,7 +2958,7 @@
       },
       {
         "question": "I stand on a stage but never bow; I'm essential to many shows. What am I?",
-        "answer": "microphone stand",
+        "answer": "microphone stand", "boom mic stand","mic stand", "boom mic"
         "acceptable": ["mic stand", "microphone stand"],
         "hints": [
           "Supports a microphone for singers or speakers.",
