@@ -1344,7 +1344,7 @@
         "difficulty": "medium"
       },
       {
-        "question": "I pass by in a flash, capturing stillness in motion, but I'm not a runner. What am I?",
+        "question": "I open and close in a flash, freezing time with every blink, yet I’ve got no legs to run. What am I?",
         "answer": "camera shutter",
         "acceptable": ["camera shutter", "shutter"],
         "hints": [
