@@ -342,7 +342,7 @@
       {
         "question": "I spin threads finer than hair, yet I'm not a tailor. What am I?",
         "answer": "spider",
-        "acceptable": ["spider"],
+        "acceptable": ["spider","silkworm"],
         "hints": [
           "I create webs.",
           "I have eight legs."
